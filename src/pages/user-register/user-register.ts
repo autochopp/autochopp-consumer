@@ -15,8 +15,8 @@ export class UserRegisterPage {
 
   create() {
     this.userService.create(this.user)
-      .then(user => console.log('Sucessful register'))
-      .catch(user => console.log('Wrong params'));
+      .then(user => console.log("User sucessful register"))
+      .catch(error => console.error(error))
   }
 
 }

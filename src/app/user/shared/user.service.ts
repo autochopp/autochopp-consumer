@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { Http } from '@angular/http';
+import { Http, RequestOptions, Headers } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -8,21 +8,25 @@ import { User } from './../user';
 
 @Injectable()
 export class UserService {
+    private api_url: string;
 
-    constructor(private http: Http) { }
+    constructor(private http: Http) {
+        this.api_url = 'https://fast-retreat-18030.herokuapp.com';
+    }
 
     create(user: User) {
-        // tokenize user data, API expects real json
+        // tokenize user data. 
+        // Sending format expected by API
         const userData = {
-            email: user.email,
-            password: user.password
-            // Excluding password confirmation
+            'user': {
+                'email': user.email,
+                'password': user.password
+            }
         };
 
-        const createURL = 'https://fast-retreat-18030.herokuapp.com/users/';
+        const createURL = this.api_url + '/users/';
 
-        return this.http
-            .post(createURL, userData)
+        return this.http.post(createURL, userData)
             .toPromise()
             .then(res => res.json().data as User)
             .catch(this.handleError);

@@ -1,8 +1,9 @@
 export class User {
+
+    public password_confirmation: string
+
     constructor(
-        public id: number,
         public email: string,
         public password: string,
-        public password_confirmation: string
     ) { }
 }

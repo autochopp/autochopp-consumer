@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 
-import { Http, RequestOptions, Headers } from '@angular/http';
+import { Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { User } from './../user';
+import { User } from './user';
 
 @Injectable()
 export class UserService {
@@ -25,6 +25,8 @@ export class UserService {
         };
 
         const createURL = this.api_url + '/users/';
+
+        console.log(userData);
 
         return this.http.post(createURL, userData)
             .toPromise()

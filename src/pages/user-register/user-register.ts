@@ -1,53 +1,28 @@
 import { UserService } from './../../app/user/user.service';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 
 import { User } from "../../app/user/user";
 
 @Component({
   templateUrl: 'user-register.html',
 })
-export class UserRegisterPage {
-  private userForm: FormGroup;
+export class UserRegisterPage implements OnInit {
+  userForm: FormGroup;
+
   user = new User('', '');
 
-  formErrors = {
-    'email': '',
-    'password': '',
-    'password_confirmation': ''
-  };
-
-  validationMessages = {
-    'email': {
-      'pattern': 'Isso não parece ser um email válido!'
-    },
-    'password': {
-      'minlength': 'Senha precisa ter no mínimo 8 caracteres'
-    },
-    'password_confirmation': {
-      'passwordConfirmation': 'Confirmação inválida'
-    }
-  };
-
-  constructor(
+  constructor (
     private formBuilder: FormBuilder,
     private userService: UserService
-  ) {
-    this.userForm = this.formBuilder.group({
-      email: [this.user.email, [
-        Validators.required, Validators.pattern('[^ @]*@[^ @]*')
-      ]
-      ],
-      password: [this.user.password, [
-        Validators.required, Validators.minLength(6)
-      ]
-      ],
-      password_confirmation: [this.user.password_confirmation, [
-        Validators.required
-      ]
-      ],
-    });
+  ) { }
+  
+  ngOnInit(): void {
+    this.userForm = this.user.getBasicForm(this.formBuilder);
+    this.userForm.addControl('password_confirmation', 
+      new FormControl(this.user.password_confirmation, [Validators.required])
+    );
 
     this.userForm.valueChanges
       .subscribe(data => this.onValueChanged(data));
@@ -57,6 +32,7 @@ export class UserRegisterPage {
 
   create() {
     this.user = this.userForm.value;
+
     this.userService.create(this.user)
       .then(user => console.log("User sucessful register"))
       .catch(error => console.error(error))
@@ -67,18 +43,17 @@ export class UserRegisterPage {
     const form = this.userForm;
 
     // tslint:disable:forin
-    for (const field in this.formErrors) {
+    for (const field in this.user.formErrors) {
       // clear previous error message (if any)
-      this.formErrors[field] = '';
+      this.user.formErrors[field] = '';
       const control = form.get(field);
 
       if (control && control.dirty && !control.valid) {
-        const messages = this.validationMessages[field];
+        const messages = this.user.validationMessages[field];
         for (const key in control.errors) {
-          this.formErrors[field] += messages[key] + ' ';
+          this.user.formErrors[field] += messages[key];
         }
       }
     }
   }
-
 }

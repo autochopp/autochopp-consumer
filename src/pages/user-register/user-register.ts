@@ -1,3 +1,5 @@
+import { NavController } from 'ionic-angular';
+import { AlertPage } from './../alert/alert';
 import { UserService } from './../../app/user/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -10,12 +12,16 @@ import { User } from "../../app/user/user";
 })
 export class UserRegisterPage implements OnInit {
   userForm: FormGroup;
-
+  
   user = new User('', '');
+  
+  // redirects after register
+  alertPage = AlertPage;
 
   constructor (
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private navCtrl: NavController
   ) { }
   
   ngOnInit(): void {
@@ -34,8 +40,14 @@ export class UserRegisterPage implements OnInit {
     this.user = this.userForm.value;
 
     this.userService.create(this.user)
-      .then(user => console.log("User sucessful register"))
-      .catch(error => console.error(error))
+      .then(user => this.navCtrl.push(AlertPage, {'message' : this.getSuccessMessage(user)}))
+      .catch(error => console.error(error));
+
+    this.user = new User('', '');
+  }
+
+  getSuccessMessage(user: User):string {
+    return "Register was been suceed, please confirm your email.";
   }
 
   onValueChanged(data?: any): void {

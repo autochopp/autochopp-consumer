@@ -41,22 +41,22 @@ export class UserRegisterPage implements OnInit {
 
     const navCtrlParams = { 'message': this.getSuccessMessage(user) };
 
+    console.log(`Password is equals confirmation: ${user.password == user.password_confirmation}`);
+
     this.userService.create(user)
       .then(user => this.navCtrl.push(AlertPage, navCtrlParams))
       .catch(error => this.throwAPIError(error));
   }
 
   private getSuccessMessage(user: User): string {
-    return "Register was been suceed, please confirm your email.";
+    return "Registro foi efetuado com sucesso, por favor verifique seu email.";
   }
 
   private onValueChanged(data?: any): void {
     if (!this.userForm) { return; }
     const form = this.userForm;
 
-    // tslint:disable:forin
     for (const field in this.user.formErrors) {
-      // clear previous error message (if any)
       this.user.formErrors[field] = '';
       const control = form.get(field);
 

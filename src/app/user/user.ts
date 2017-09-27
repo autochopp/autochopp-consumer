@@ -20,8 +20,7 @@ export class User {
       'minlength': 'Senha precisa ter no mínimo 6 caracteres'
     },
     'password_confirmation': {
-      'required': 'Por favor, confirme sua senha',
-      'passwordConfirmation': 'Confirmação inválida'
+      'required': 'Por favor, confirme sua senha'
     }
   };
 

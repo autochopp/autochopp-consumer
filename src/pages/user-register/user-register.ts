@@ -12,21 +12,21 @@ import { User } from "../../app/user/user";
 })
 export class UserRegisterPage implements OnInit {
   userForm: FormGroup;
-  
+
   user = new User('', '');
-  
+
   // redirects after register
   alertPage = AlertPage;
 
-  constructor (
+  constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private navCtrl: NavController
   ) { }
-  
+
   ngOnInit(): void {
     this.userForm = this.user.getBasicForm(this.formBuilder);
-    this.userForm.addControl('password_confirmation', 
+    this.userForm.addControl('password_confirmation',
       new FormControl(this.user.password_confirmation, [Validators.required])
     );
 
@@ -37,20 +37,20 @@ export class UserRegisterPage implements OnInit {
   }
 
   create() {
-    this.user = this.userForm.value;
+    const user = this.userForm.value;
 
-    this.userService.create(this.user)
-      .then(user => this.navCtrl.push(AlertPage, {'message' : this.getSuccessMessage(user)}))
-      .catch(error => console.error(error));
+    const navCtrlParams = { 'message': this.getSuccessMessage(user) };
 
-    this.user = new User('', '');
+    this.userService.create(user)
+      .then(user => this.navCtrl.push(AlertPage, navCtrlParams))
+      .catch(error => this.throwAPIError(error));
   }
 
-  getSuccessMessage(user: User):string {
+  private getSuccessMessage(user: User): string {
     return "Register was been suceed, please confirm your email.";
   }
 
-  onValueChanged(data?: any): void {
+  private onValueChanged(data?: any): void {
     if (!this.userForm) { return; }
     const form = this.userForm;
 
@@ -66,6 +66,19 @@ export class UserRegisterPage implements OnInit {
           this.user.formErrors[field] += messages[key];
         }
       }
+    }
+  }
+
+  private throwAPIError(errors: any): void {
+    const jsonErrors = errors.json();
+
+    // clean formErrors
+    for (const field in this.user.formErrors) {
+      this.user.formErrors[field] = '';
+    }
+
+    for (const field in jsonErrors) {
+      this.user.formErrors[field] += jsonErrors[field]
     }
   }
 }

@@ -8,33 +8,34 @@ import { User } from './user';
 
 @Injectable()
 export class UserService {
-    private api_url: string;
+  private api_url: string;
 
-    constructor(private http: Http) {
-        this.api_url = 'https://fast-retreat-18030.herokuapp.com';
-    }
+  constructor(private http: Http) {
+    this.api_url = 'https://fast-retreat-18030.herokuapp.com';
+  }
 
-    create(user: User) {
-        // tokenize user data. 
-        // Sending format expected by API
-        const userData = {
-            'user': {
-                'email': user.email,
-                'password': user.password
-            }
-        };
+  create(user: User) {
+    // tokenize user data. 
+    // Sending format expected by API
+    const userData = {
+      'user': {
+        'email': user.email,
+        'password': user.password,
+        'password_confirmation': user.password_confirmation
+      }
+    };
 
-        const createURL = this.api_url + '/users/';
+    const createURL = this.api_url + '/users/';
 
-        console.log(userData);
+    console.log(userData);
 
-        return this.http.post(createURL, userData)
-            .toPromise()
-            .then(res => res.json().data as User)
-            .catch(this.handleError);
-    }
+    return this.http.post(createURL, userData)
+      .toPromise()
+      .then(res => res.json().data as User)
+      .catch(this.handleError);
+  }
 
-    private handleError(error: any): Promise<any> {
-        return Promise.reject(error.message || error);
-    }
+  private handleError(error: any): Promise<any> {
+    return Promise.reject(error.message || error);
+  }
 }

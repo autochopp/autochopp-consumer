@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { UserRegisterPage } from './../user-register/user-register';
 
@@ -10,10 +10,14 @@ import { UserRegisterPage } from './../user-register/user-register';
 export class HomePage {
 
   registerPage = UserRegisterPage;
+  message: string;
 
   constructor(
-    public navCtrl: NavController
-  ) { }
+    public navCtrl: NavController,
+    public navParams: NavParams
+  ) { 
+    this.message = navParams.get('message');
+  }
 
   pushPage(): void {
     this.navCtrl.push(UserRegisterPage);

@@ -6,24 +6,34 @@
 
 <ion-content padding class="default-bg">
     <ion-list>
-        <ion-item color="secondary">
-            <ion-label floating color="dark">Email</ion-label>
-            <ion-input type="text"></ion-input>
-        </ion-item>
+        <form [formGroup]="userForm" (ngSubmit)="create()">
 
-        <ion-item color="secondary">
-            <ion-label floating color="dark">Senha</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
+            <ion-item color="secondary">
+                <ion-label floating color="dark">Email</ion-label>
+                <ion-input type="text" formControlName="email" name="email"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="user.formErrors.email as value">{{value}}</ion-label>
+            </ion-item>
 
-        <ion-item color="secondary">
-            <ion-label floating color="dark">Confirmar senha</ion-label>
-            <ion-input type="password"></ion-input>
-        </ion-item>
+            <ion-item color="secondary">
+                <ion-label floating color="dark">Senha</ion-label>
+                <ion-input type="password" formControlName="password" name="password"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="user.formErrors.password as value">{{value}}</ion-label>                
+            </ion-item>
+
+            <ion-item color="secondary">
+                <ion-label floating color="dark">Confirmar senha</ion-label>
+                <ion-input type="password" formControlName="password_confirmation"
+                    name="password_confirmation"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="user.formErrors.password_confirmation as value">{{value}}</ion-label>                
+            </ion-item>
+
+            <div padding>
+                <button ion-button type="submit" color="primary" 
+                    block [disabled]="!userForm.valid">Cadastrar</button>
+            </div>
+        </form>
     </ion-list>
-
-    <div padding>
-        <button ion-button (click)="pushPage()" color="primary" block>Cadastrar</button>
-    </div>
-
 </ion-content>

@@ -1,5 +1,5 @@
+import { HomePage } from './../home/home';
 import { NavController } from 'ionic-angular';
-import { AlertPage } from './../alert/alert';
 import { UserService } from './../../app/user/user.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -14,9 +14,6 @@ export class UserRegisterPage implements OnInit {
   userForm: FormGroup;
 
   user = new User('', '');
-
-  // redirects after register
-  alertPage = AlertPage;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,7 +41,7 @@ export class UserRegisterPage implements OnInit {
     console.log(`Password is equals confirmation: ${user.password == user.password_confirmation}`);
 
     this.userService.create(user)
-      .then(user => this.navCtrl.push(AlertPage, navCtrlParams))
+      .then(user => this.navCtrl.push(HomePage, navCtrlParams))
       .catch(error => this.throwAPIError(error));
   }
 

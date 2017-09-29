@@ -16,10 +16,8 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class HomeLoggedPage {
 
-  userEmail: string;
-
   constructor(
-    public navCtrl: NavController, 
+    public navCtrl: NavController,
     public navParams: NavParams,
     public authService: AuthService
   ) {

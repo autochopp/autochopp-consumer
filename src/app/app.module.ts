@@ -13,6 +13,7 @@ import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
+import { HomeLoggedPage } from '../pages/home-logged/home-logged';
 
 // Another ionic/angular components
 import { StatusBar } from '@ionic-native/status-bar';
@@ -27,6 +28,7 @@ import { HttpModule } from "@angular/http";
     HomePage,
     TabsPage,
     UserRegisterPage,
+    HomeLoggedPage,
     AlertComponent
   ],
   imports: [
@@ -41,7 +43,8 @@ import { HttpModule } from "@angular/http";
     ContactPage,
     HomePage,
     TabsPage,
-    UserRegisterPage
+    UserRegisterPage,
+    HomeLoggedPage
   ],
   providers: [
     StatusBar,

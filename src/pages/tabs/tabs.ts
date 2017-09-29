@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from 'ionic-angular';
 
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
@@ -13,7 +14,9 @@ export class TabsPage {
   tab2Root = AboutPage;
   tab3Root = ContactPage;
 
-  constructor() {
-
+  constructor(public navCtrl: NavController) {
+    if(!localStorage.getItem("token")) {
+      navCtrl.setRoot(HomePage);
+    }
   }
 }

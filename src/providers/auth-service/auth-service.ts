@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
-let apiUrl = 'https://fast-retreat-18030.herokuapp.com';
+let apiUrl = 'http://localhost:3000';
 
 @Injectable()
 export class AuthService {
@@ -14,7 +14,7 @@ export class AuthService {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        this.http.post(apiUrl+'login', JSON.stringify(credentials), {headers: headers})
+        this.http.post(apiUrl+'/authenticate', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
             resolve(res.json());
           }, (err) => {

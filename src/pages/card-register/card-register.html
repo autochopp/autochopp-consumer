@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-navbar>
+        <ion-title>Atualizar cartão</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content padding class="default-bg">
+    <ion-list>
+        <form [formGroup]="cardForm" (ngSubmit)="create()">
+            <ion-item color="secondary">
+                <ion-label floating color="dark">Nome do titular do cartão</ion-label>
+                <ion-input type="text" formControlName="ownerName" name="ownerName"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="card.formErrors.ownerName as value">{{value}}</ion-label>
+            </ion-item>
+
+            <ion-item color="secondary">
+                <ion-label floating color="dark">CPF do titular cartão</ion-label>
+                <ion-input type="text" formControlName="ownerCPF" name="ownerCPF"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="card.formErrors.ownerCPF as value">{{value}}</ion-label>
+            </ion-item>
+
+            <ion-item color="secondary">
+                <ion-label floating color="dark">Número do cartão</ion-label>
+                <ion-input type="text" formControlName="cardNumber" name="cardNumber"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="card.formErrors.cardNumber as value">{{value}}</ion-label>
+            </ion-item>
+
+            <ion-item color="secondary">
+                <ion-label floating color="dark">Código de segurança</ion-label>
+                <ion-input type="text" formControlName="securityCode" name="securityCode"></ion-input>
+                <ion-label floating color="danger" 
+                    *ngIf="card.formErrors.securityCode as value">{{value}}</ion-label>
+            </ion-item>
+            
+            <div padding>
+                <button ion-button type="submit" color="primary" 
+                    block [disabled]="!cardForm.valid">Cadastrar</button>
+            </div>
+        </form>
+    </ion-list>
+</ion-content>

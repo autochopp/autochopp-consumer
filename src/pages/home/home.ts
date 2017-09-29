@@ -27,14 +27,7 @@ export class HomePage {
   }
 
   logout() {
-    this.authService.logout().then((result) => {
-      this.loading.dismiss();
-      let nav = this.app.getRootNav();
-      nav.setRoot(HomePage);
-    }, (err) => {
-      this.loading.dismiss();
-      this.presentToast(err);
-    });
+    this.authService.logout()
   }
 
   doLogin() {
@@ -48,6 +41,7 @@ export class HomePage {
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);
+      console.log(err)
     });
   }
 

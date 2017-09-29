@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController, App } from 'ionic-angular';
 
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { ContactPage } from '../contact/contact'
+import { HomeLoggedPage } from '../home-logged/home-logged'
 
 @Component({
   selector: 'page-home',
@@ -37,7 +37,7 @@ export class HomePage {
       this.loading.dismiss();
       this.data = result;
       localStorage.setItem('token', this.data.access_token);
-      this.navCtrl.setRoot(ContactPage);
+      this.navCtrl.setRoot(HomeLoggedPage);
     }, (err) => {
       this.loading.dismiss();
       this.presentToast(err);

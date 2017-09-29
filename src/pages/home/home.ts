@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController, App } from 'ionic-angular';
 
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { HomeLoggedPage } from '../home-logged/home-logged'
+import { HomeLoggedPage } from '../home-logged/home-logged';
+import { UserRegisterPage } from '../user-register/user-register';
 
 @Component({
   selector: 'page-home',
@@ -66,6 +67,10 @@ export class HomePage {
     });
 
     toast.present();
+  }
+
+  pushPage():void {
+    this.navCtrl.push(UserRegisterPage);
   }
 
 }

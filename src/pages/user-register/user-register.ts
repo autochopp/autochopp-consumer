@@ -38,8 +38,6 @@ export class UserRegisterPage implements OnInit {
 
     const navCtrlParams = { 'message': this.getSuccessMessage(user) };
 
-    console.log(`Password is equals confirmation: ${user.password == user.password_confirmation}`);
-
     this.userService.create(user)
       .then(user => this.navCtrl.push(HomePage, navCtrlParams))
       .catch(error => this.throwAPIError(error));

@@ -27,8 +27,6 @@ export class UserService {
 
     const createURL = this.api_url + '/users/';
 
-    console.log(userData);
-
     return this.http.post(createURL, userData)
       .toPromise()
       .then(res => res.json().data as User)

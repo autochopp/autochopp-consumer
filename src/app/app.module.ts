@@ -13,6 +13,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
+import { OrderPage } from './../pages/order/order';
 
 // Providers
 import { UserService } from './user/user.service';
@@ -50,6 +51,7 @@ export function getAuthHttp(http) {
     TabsPage,
     UserRegisterPage,
     HomeLoggedPage,
+    OrderPage,
     AlertComponent
   ],
   imports: [
@@ -66,7 +68,8 @@ export function getAuthHttp(http) {
     HomePage,
     TabsPage,
     UserRegisterPage,
-    HomeLoggedPage
+    HomeLoggedPage,
+    OrderPage
   ],
   providers: [
     StatusBar,

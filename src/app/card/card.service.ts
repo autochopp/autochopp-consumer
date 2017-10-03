@@ -1,6 +1,6 @@
 import { Card } from './card';
 
-import { Http, RequestOptions } from '@angular/http';
+import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/map';

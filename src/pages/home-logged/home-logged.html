@@ -7,12 +7,14 @@
 <ion-content padding class="default-bg">
 
   <div padding>
-      <button ion-button type="submit" color="primary" block>
-                  <ion-icon name="cart"></ion-icon> Comprar </button>
+      <button ion-button (click)="redirectToBuyPage" color="primary" block>
+        <ion-icon name="cart"></ion-icon>Comprar
+      </button>
   </div>
 
   <div padding>
       <button ion-button type="submit" color="primary" block>
-                  <ion-icon name="beer"></ion-icon> Meus chopps </button>
+        <ion-icon name="beer"></ion-icon> Meus chopps
+      </button>
   </div>
 </ion-content>

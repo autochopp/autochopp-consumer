@@ -1,7 +1,5 @@
-import { PagSeguroComponent } from 'ionic-pagseguro';
 import { CardService } from './../../app/card/card.service';
 import { Card } from './../../app/card/card';
-import { NavController } from 'ionic-angular';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 

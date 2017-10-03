@@ -25,7 +25,8 @@ export class CardRegisterPage {
   }
 
   /**
-   * Choose the brand of card from card.cardNumber
+   * Choose the brand of card from card.cardNumber.
+   * This event should be fired automatically.
    */
   private searchBrand(): void {
     PagSeguroDirectPayment.getBrand({
@@ -37,7 +38,6 @@ export class CardRegisterPage {
         console.log(response);
       }
     });
-
   }
 
   /**
@@ -55,7 +55,7 @@ export class CardRegisterPage {
   }
 
   /**
-   * To perfom a transaction, API needs card token.
+   * To perfom a transaction, API needs a card token.
    */
   private createCardToken(): void {
     PagSeguroDirectPayment.createCardToken({
@@ -89,17 +89,19 @@ export class CardRegisterPage {
       });
 
       // API should generate ID to be consumer here
-      this.cardService.startSession()
+      this.cardService
+        .startSession()
         .subscribe(result => this.openSession(result));
     } else {
       // Just use pagsegure
     }
+
   }
 
   /**
    * Set pagseguro id, activating PagSeguroDirectPayment use
    * 
-   * @param result 
+   * @param result is created in API to be used in JS calls
    */
   private openSession(result): void {
     PagSeguroDirectPayment.setSessionId(result);

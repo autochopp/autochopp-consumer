@@ -13,7 +13,8 @@ export class CardService {
   constructor(private http: Http) { }
 
   public startSession() {
-    const startSession = "";
+    const startSession = "/getsessionid";
+
     return this.http.get(startSession)
       .map(res => res.json());
   }

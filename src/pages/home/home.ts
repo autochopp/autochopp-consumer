@@ -3,13 +3,28 @@ import { NavController, LoadingController, ToastController, App } from 'ionic-an
 
 import { AuthService } from '../../providers/auth-service/auth-service';
 import { HomeLoggedPage } from '../home-logged/home-logged';
+import {Headers} from "@angular/http";
+import {JwtHelper} from "angular2-jwt";
 import { UserRegisterPage } from '../user-register/user-register';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
+
+  auth: AuthService;
+  
+  // When the page loads, we want the Login segment to be selected
+  authType: string = "login";
+
+  // We need to set the content type for the server
+  contentHeader = new Headers({"Content-Type": "application/json"});
+  error: string;
+  jwtHelper = new JwtHelper();
+  user: string;
+  
 
   loading: any;
   isLoggedIn: boolean = false;
@@ -28,6 +43,7 @@ export class HomePage {
   }
 
   logout() {
+    localStorage.remove('token');
     this.authService.logout()
   }
 
@@ -71,6 +87,13 @@ export class HomePage {
 
   pushPage():void {
     this.navCtrl.push(UserRegisterPage);
+  }
+
+  authSuccess(token) {
+    this.error = null;
+    localStorage.set('token', token);
+    this.user = this.jwtHelper.decodeToken(token).username;
+    localStorage.set('profile', this.user);
   }
 
 }

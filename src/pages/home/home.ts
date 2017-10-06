@@ -1,11 +1,14 @@
+import { HomeLoggedPage } from './../home-logged/home-logged';
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController, App } from 'ionic-angular';
 
 import { AuthService } from '../../providers/auth-service/auth-service';
-import { HomeLoggedPage } from '../home-logged/home-logged';
-import {Headers} from "@angular/http";
-import {JwtHelper} from "angular2-jwt";
+import { JwtHelper } from "angular2-jwt";
+
 import { UserRegisterPage } from '../user-register/user-register';
+
+import { Storage } from "@ionic/storage";
+
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -14,55 +17,80 @@ import 'rxjs/add/operator/map';
 })
 export class HomePage {
 
-  auth: AuthService;
-  
-  // When the page loads, we want the Login segment to be selected
-  authType: string = "login";
-
-  // We need to set the content type for the server
-  contentHeader = new Headers({"Content-Type": "application/json"});
   error: string;
   jwtHelper = new JwtHelper();
-  user: string;
-  
 
+  user: string;
+
+  // used by showLoader() method
   loading: any;
-  isLoggedIn: boolean = false;
+
   loginData = { email: '', password: '' };
-  data: any;
 
   constructor(
     public app: App,
     public navCtrl: NavController,
     public authService: AuthService,
     public loadingCtrl: LoadingController,
-    private toastCtrl: ToastController) {
-    if (localStorage.getItem("token")) {
-      this.isLoggedIn = true;
-    }
+    private toastCtrl: ToastController,
+    private storage: Storage,
+  ) {
+    storage.ready()
+      .then(() => {
+        this.updateUserSession();
+      })
+      .catch(() => console.log("User not logged"));
   }
 
-  logout() {
-    localStorage.remove('token');
-    this.authService.logout()
-  }
-
-  doLogin() {
+  /**
+   * Request server authentication by authService
+   */
+  public doLogin(): void {
     this.showLoader();
+
     this.authService.login(this.loginData)
-    .then((result) => {
-      this.loading.dismiss();
-      this.data = result;
-      localStorage.setItem('token', this.data.access_token);
-      this.navCtrl.setRoot(HomeLoggedPage);
-    }, (err) => {
-      this.loading.dismiss();
-      this.presentToast(err);
-      console.log(err)
-    });
+      .subscribe(
+        data => {
+          this.authenticate(data);
+          this.navCtrl.setRoot(HomeLoggedPage);
+        },
+        err => {
+          this.presentToast(err);
+          console.log(err);
+        }
+      );
+    // after all
+    this.loading.dismiss();
   }
 
-  showLoader() {
+  /**
+   * Clear session
+   */
+  public logout(): void {
+    this.storage.remove('token');
+    this.user = null;
+  }
+
+  private updateUserSession(): void {
+    this.storage.get('user')
+      .then(user => this.user = JSON.parse(user));
+  }
+
+  /**
+   * Save token and user profile on ionic storage
+   * 
+   * @param token getted of API
+   */
+  private authenticate(token): void {
+    this.storage.set('token', token);
+
+    this.storage.set('user', this.user);
+  }
+
+  /**
+   * Show loader animation when login action is triggered
+   */
+  private showLoader(): void {
     this.loading = this.loadingCtrl.create({
       content: 'Authenticating...'
     });
@@ -70,9 +98,9 @@ export class HomePage {
     this.loading.present();
   }
 
-  presentToast(msg) {
+  private presentToast(message): void {
     let toast = this.toastCtrl.create({
-      message: msg,
+      message: message,
       duration: 3000,
       position: 'bottom',
       dismissOnPageChange: true
@@ -85,15 +113,11 @@ export class HomePage {
     toast.present();
   }
 
-  pushPage():void {
+  /**
+   * Used into home view
+   */
+  public pushPage():void {
     this.navCtrl.push(UserRegisterPage);
-  }
-
-  authSuccess(token) {
-    this.error = null;
-    localStorage.set('token', token);
-    this.user = this.jwtHelper.decodeToken(token).username;
-    localStorage.set('profile', this.user);
   }
 
 }

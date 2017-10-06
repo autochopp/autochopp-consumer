@@ -1,3 +1,4 @@
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -14,11 +15,12 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class HomeLoggedPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  userEmail: string;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomeLoggedPage');
-  }
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public storage: Storage
+  ) {}
 
 }

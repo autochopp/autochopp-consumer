@@ -1,4 +1,3 @@
-import { UserService } from './user/user.service';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -15,11 +14,15 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
 
+// Providers
+import { UserService } from './user/user.service';
+import { AuthService } from '../providers/auth-service/auth-service';
+
 // Another ionic/angular components
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { HttpModule } from "@angular/http";
-import { AuthService } from '../providers/auth-service/auth-service';
+import { IonicStorageModule } from "@ionic/storage";
 
 @NgModule({
   declarations: [
@@ -35,7 +38,8 @@ import { AuthService } from '../providers/auth-service/auth-service';
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -1,30 +1,24 @@
+import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
-import { Http, Headers } from '@angular/http';
+import { Http } from '@angular/http';
+
 import 'rxjs/add/operator/map';
 
-let apiUrl = 'http://localhost:3000';
 
 @Injectable()
 export class AuthService {
 
-  constructor(public http: Http) { }
+  apiUrl = 'http://localhost:3000';
+
+  constructor(
+    public http: Http,
+    public storage: Storage
+  ) { }
 
   login(credentials) {
-    return new Promise((resolve, reject) => {
-      let headers = new Headers();
-      headers.append('Content-Type', 'application/json');
+    const url = this.apiUrl + "/authenticate";
 
-      this.http.post(apiUrl + '/authenticate', JSON.stringify(credentials), { headers: headers })
-        .subscribe(res => {
-          resolve(res.json());
-        }, (err) => {
-          reject(err);
-        });
-    });
+    return this.http.post(url, credentials)
+      .map(res => res.json());
   }
-
-  logout(): void {
-    localStorage.clear();
-  }
-
 }

@@ -6,17 +6,15 @@
 
 <ion-content padding class="default-bg">
   <h2 text-center>Hora de tomar uma!</h2>
-    <ion-item color="secondary">
-      <ion-label floating color="dark">Email</ion-label>
-      <ion-input [(ngModel)]="loginData.email" name="email" type="text" 
-       ></ion-input>
-    </ion-item>
+  <ion-item color="secondary">
+    <ion-label floating color="dark">Email</ion-label>
+    <ion-input [(ngModel)]="loginData.email" name="email" type="text"></ion-input>
+  </ion-item>
 
-    <ion-item color="secondary">
-      <ion-label floating color="dark">Senha</ion-label>
-      <ion-input [(ngModel)]="loginData.password" name="password" type="password"
-        ></ion-input>
-    </ion-item>
+  <ion-item color="secondary">
+    <ion-label floating color="dark">Senha</ion-label>
+    <ion-input [(ngModel)]="loginData.password" name="password" type="password"></ion-input>
+  </ion-item>
 
   <div padding>
     <button ion-button (click)="doLogin()" color="primary" block>Login</button>

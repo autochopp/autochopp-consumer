@@ -14,6 +14,7 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
 import { OrderPage } from './../pages/order/order';
+import { ChoppsPage } from '../pages/chopps/chopps';
 
 // Providers
 import { UserService } from './user/user.service';
@@ -52,6 +53,7 @@ export function getAuthHttp(http) {
     UserRegisterPage,
     HomeLoggedPage,
     OrderPage,
+    ChoppsPage,
     AlertComponent
   ],
   imports: [
@@ -69,7 +71,8 @@ export function getAuthHttp(http) {
     TabsPage,
     UserRegisterPage,
     HomeLoggedPage,
-    OrderPage
+    OrderPage,
+    ChoppsPage
   ],
   providers: [
     StatusBar,

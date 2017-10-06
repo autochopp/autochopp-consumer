@@ -3,6 +3,9 @@ import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
+import { OrderPage } from  '../order/order';
+import { ChoppsPage } from '../chopps/chopps'
+
 /**
  * Generated class for the HomeLoggedPage page.
  *
@@ -22,6 +25,14 @@ export class HomeLoggedPage {
     public authService: AuthService
   ) {
     console.log("User is logged? " + this.authService.isLogged());
+  }
+
+  goToOrderPage(): void {
+    this.navCtrl.push(OrderPage);
+  }
+
+  goToChoppsPage(): void {
+    this.navCtrl.push(ChoppsPage);
   }
 
 }

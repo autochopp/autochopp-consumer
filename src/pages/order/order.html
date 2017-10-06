@@ -1,43 +1,49 @@
+<!--
+  Generated template for the OrderPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
 <ion-header>
+
   <ion-navbar>
-    <ion-title>Order</ion-title>
+    <ion-title>Pedir um chopp!</ion-title>
   </ion-navbar>
+
 </ion-header>
 
+
 <ion-content padding class="default-bg">
-  <h2 text-center>Hora de tomar uma!</h2>
 
-    <discreet-alert></discreet-alert>
+  <form [formGroup]="order" (ngSubmit)="postDados()">
+    <ion-list>
+      <ion-item>
+        <ion-label> Tamanho </ion-label>
+        <ion-select name="tamanho" formControlName="tamanho" interface="popover">
+          <ion-option value="500">500ml</ion-option>
+          <ion-option value="300">300ml</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item color="secondary">
-      <ion-label floating color="dark">Selecione o tipo de chopp</ion-label>
-      <ion-select [(ngModel)]="gender">
-        <ion-option value="tradicional">Tradicional</ion-option>
-        <ion-option value="vinho">Vinho</ion-option>
-      </ion-select>    
-    </ion-item>
+      <ion-item>
+        <ion-label> Tipo </ion-label>
+        <ion-select name="tipo" formControlName="tipo" interface="popover">
+          <ion-option value="malte">Malte</ion-option>
+          <ion-option value="cevada">Cevada</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item color="secondary">
-      <ion-label floating color="dark">Seleciona a quantidade</ion-label>
-      <ion-select [(ngModel)]="gender">
-        <ion-option value="500">500 ml</ion-option>
-        <ion-option value="1000">1000 ml</ion-option>
-      </ion-select> 
-    </ion-item>
+      <ion-item>
+        <ion-label> Colarinho </ion-label>
+        <ion-select name="colarinho" formControlName="colarinho" interface="popover">
+          <ion-option value="pequeno">Pequeno</ion-option>
+          <ion-option value="grande">Grande</ion-option>
+        </ion-select>
+      </ion-item>
 
-    <ion-item color="secondary">
-      <ion-label floating color="dark">Selecione o colarinho</ion-label>
-      <ion-select [(ngModel)]="gender">
-        <ion-option value="0">Sem colarinho</ion-option>
-        <ion-option value="2">2 dedos</ion-option>
-        <ion-option value="3">3 dedos</ion-option>        
-      </ion-select> 
-    </ion-item>
+      <button [disabled]="order.invalid" ion-button full block color="danger">Comprar</button>
 
-  <div padding>
-    <button ion-button color="primary" block>Próximo</button>
-    <!-- <button ion-button (click)="pushPage()" color="light" block>Cadastrar</button> -->
-    <!-- <button [navPush]="orderPage">Order</button>     -->
-  </div>
+    </ion-list>
+  </form>
 
 </ion-content>

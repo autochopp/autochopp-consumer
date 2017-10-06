@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+
+import { Validators, FormBuilder } from '@angular/forms';
+
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the OrderPage page.
@@ -14,7 +17,16 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class OrderPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
+    this.order = this.formBuilder.group({
+      tamanho: ['', Validators.required],
+      tipo: ['', Validators.required],
+      colarinho: ['', Validators.required]
+    });
+  }
+
+  postDados(){
+    console.log(this.order.value);
   }
 
   ionViewDidLoad() {

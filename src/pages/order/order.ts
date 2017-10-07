@@ -17,6 +17,8 @@ import { NavController, NavParams } from 'ionic-angular';
 })
 export class OrderPage {
 
+  order: any = {};
+
   constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
     this.order = this.formBuilder.group({
       tamanho: ['', Validators.required],

@@ -1,5 +1,7 @@
+import { AuthService } from './../../providers/auth-service/auth-service';
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 /**
  * Generated class for the HomeLoggedPage page.
@@ -14,11 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class HomeLoggedPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  userEmail: string;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad HomeLoggedPage');
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public authService: AuthService
+  ) {
+    console.log("User is logged? " + this.authService.isLogged());
   }
 
 }

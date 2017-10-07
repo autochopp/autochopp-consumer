@@ -1,4 +1,3 @@
-import { UserService } from './user/user.service';
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
@@ -15,10 +14,32 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
 
+// Providers
+import { UserService } from './user/user.service';
+import { AuthService } from '../providers/auth-service/auth-service';
+
 // Another ionic/angular components
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpModule } from "@angular/http";
+import { HttpModule, Http } from "@angular/http";
+import { IonicStorageModule } from "@ionic/storage";
+import { AuthHttp, AuthConfig } from "angular2-jwt";
+import { Storage } from '@ionic/storage';
+
+
+let storage = new Storage({});
+
+/**
+ * Global function to perform authenticated requests
+ */
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    // headerPrefix: YOUR_HEADER_PREFIX,
+    noJwtError: true,
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => storage.get('token').then((token: string) => token)),
+  }), http);
+}
 
 @NgModule({
   declarations: [
@@ -34,7 +55,8 @@ import { HttpModule } from "@angular/http";
   imports: [
     BrowserModule,
     HttpModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -50,7 +72,9 @@ import { HttpModule } from "@angular/http";
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    UserService
+    UserService,
+    AuthService,
+    {provide: AuthHttp, useFactory: getAuthHttp,deps: [Http]}
   ]
 })
 export class AppModule {}

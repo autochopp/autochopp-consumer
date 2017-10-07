@@ -35,6 +35,7 @@ export class HomePage {
     private toastCtrl: ToastController,
     private storage: Storage,
   ) {
+    // TODO this actually not work
     storage.ready()
       .then(() => {
         this.updateUserSession();
@@ -49,16 +50,14 @@ export class HomePage {
     this.showLoader();
 
     this.authService.login(this.loginData)
-      .subscribe(
-        data => {
-          this.authenticate(data);
+      .subscribe(result => {
+        if(result) {
           this.navCtrl.setRoot(HomeLoggedPage);
-        },
-        err => {
-          this.presentToast(err);
-          console.log(err);
+        } else {
+          this.presentToast("Dados incorretos...");
         }
-      );
+     
+      });
     // after all
     this.loading.dismiss();
   }
@@ -71,20 +70,10 @@ export class HomePage {
     this.user = null;
   }
 
+  // TODO refactor this
   private updateUserSession(): void {
     this.storage.get('user')
       .then(user => this.user = JSON.parse(user));
-  }
-
-  /**
-   * Save token and user profile on ionic storage
-   * 
-   * @param token getted of API
-   */
-  private authenticate(token): void {
-    this.storage.set('token', token);
-
-    this.storage.set('user', this.user);
   }
 
   /**

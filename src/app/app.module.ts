@@ -21,8 +21,25 @@ import { AuthService } from '../providers/auth-service/auth-service';
 // Another ionic/angular components
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-import { HttpModule } from "@angular/http";
+import { HttpModule, Http } from "@angular/http";
 import { IonicStorageModule } from "@ionic/storage";
+import { AuthHttp, AuthConfig } from "angular2-jwt";
+import { Storage } from '@ionic/storage';
+
+
+let storage = new Storage({});
+
+/**
+ * Global function to perform authenticated requests
+ */
+export function getAuthHttp(http) {
+  return new AuthHttp(new AuthConfig({
+    // headerPrefix: YOUR_HEADER_PREFIX,
+    noJwtError: true,
+    globalHeaders: [{'Accept': 'application/json'}],
+    tokenGetter: (() => storage.get('token').then((token: string) => token)),
+  }), http);
+}
 
 @NgModule({
   declarations: [
@@ -56,7 +73,8 @@ import { IonicStorageModule } from "@ionic/storage";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
-    AuthService
+    AuthService,
+    {provide: AuthHttp, useFactory: getAuthHttp,deps: [Http]}
   ]
 })
 export class AppModule {}

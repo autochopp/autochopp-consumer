@@ -1,3 +1,4 @@
+import { CardRegisterPage } from './../card-register/card-register';
 import { AuthService } from './../../providers/auth-service/auth-service';
 import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
@@ -26,4 +27,7 @@ export class HomeLoggedPage {
     console.log("User is logged? " + this.authService.isLogged());
   }
 
+  public buyChopp(): void {
+    this.navCtrl.push(CardRegisterPage);
+  }
 }

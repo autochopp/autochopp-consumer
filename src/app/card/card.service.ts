@@ -1,3 +1,4 @@
+import { AuthHttp } from 'angular2-jwt';
 import { Card } from './card';
 
 import { Http } from '@angular/http';
@@ -10,7 +11,9 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class CardService {
 
-  constructor(private http: Http) { }
+  url = "http://localhost:3000";
+
+  constructor(private http: Http, private auth: AuthHttp) { }
 
   public startSession() {
     const startSession = "/getsessionid";
@@ -22,9 +25,11 @@ export class CardService {
   public create(card: Card) {
     const body = JSON.stringify({ card });
 
-    const createURL = "";
+    console.log("Body is " + body);
 
-    return this.http.post(createURL, body)
+    const createURL = "/checkout/create";
+
+    return this.auth.post(createURL, body)
       .toPromise()
       .then(card => card.json().data as Card)
       .catch(error => console.error(error));

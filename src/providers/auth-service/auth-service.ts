@@ -12,7 +12,7 @@ import { Observable } from "rxjs/Observable";
 @Injectable()
 export class AuthService {
 
-  apiUrl = 'http://localhost:3000';
+  apiUrl = 'http://10.0.0.121:3000';
 
   token: string;
 

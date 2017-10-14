@@ -1,6 +1,5 @@
 import { CardRegisterPage } from './../card-register/card-register';
 import { AuthService } from './../../providers/auth-service/auth-service';
-import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 

@@ -4,24 +4,26 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
 import { ToastController } from "ionic-angular";
 
-declare var PagSeguroDirectPayment: any;
+import scriptjs from 'scriptjs';
+
+declare let PagSeguroDirectPayment;
 
 @Component({
   templateUrl: 'card-register.html',
 })
 export class CardRegisterPage {
-  cardForm: FormGroup;
+  public cardForm: FormGroup;
 
-  public card = new Card();
+  private card = new Card();
 
-  public pagseguroActive = false;
+  private pagseguroActive = false;
 
   public constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService,
     private toastCtrl: ToastController
   ) {
-    // TODO add validations
+    // TODO add more validations
     this.cardForm = this.card.getBasicForm(this.formBuilder);
 
     this.loadsPagseguro();
@@ -45,8 +47,12 @@ export class CardRegisterPage {
    * This event should be fired automatically.
    */
   public searchBrand(): void {
+    const cardBin = this.cardForm.value.cardNumber;
+
+    console.log("CardBin sequence: " + cardBin);
+
     PagSeguroDirectPayment.getBrand({
-      cardBin: this.card.cardNumber,
+      cardBin: cardBin,
       success: response => {
         console.log("Brand was found sucessful...");
         this.card.brand = response.brand.name;
@@ -62,9 +68,6 @@ export class CardRegisterPage {
    */
   private createCardToken(): any {
     let cardToken = null;
-
-    // TODO, search when user insert cardNumber
-    this.searchBrand();
 
     PagSeguroDirectPayment.createCardToken({
       cardNumber: this.card.cardNumber,
@@ -91,21 +94,15 @@ export class CardRegisterPage {
    */
   private loadsPagseguro(): void {
 
+    let pagseguroLibURL = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
     if (!this.pagseguroActive) {
-      // Set page of view to perform requests of Pagseguro API.
-      new Promise((resolve) => {
-        let script: HTMLScriptElement = document.createElement('script');
-        script.addEventListener('load', r => resolve());
-        script.src = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
-        document.head.appendChild(script);
-      });
-
+      scriptjs(pagseguroLibURL, ()=> {
       // API should generate ID to be consumer here
-      this.cardService
-        .startSession()
-        .subscribe(result => this.openSession(result));
+        this.cardService.startSession()
+            .subscribe(data => this.openSession(data));
+      });
     } else {
-      // Just use pagsegure
+      // Just use pagseguro
     }
   }
 

@@ -1,5 +1,4 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { tokenNotExpired } from 'angular2-jwt';
 
 export class Card {
 
@@ -51,7 +50,6 @@ export class Card {
             hashBuyer: [this.hashBuyer, [Validators.required]],
             expirationMonth: [this.expirationMonth, [Validators.required]],
             expirationYear: [this.expirationYear, [Validators.required]],
-            brand: [this.brand, [Validators.required]],
         })
     }
 }

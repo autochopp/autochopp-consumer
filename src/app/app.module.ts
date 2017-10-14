@@ -32,11 +32,20 @@ import { Storage } from '@ionic/storage';
 let storage = new Storage({});
 
 /**
- * Global function to perform authenticated requests
+ * Global function to perform authenticated requests.
+ * This function should generate one request similar to the follow code:
+ * 
+ *  let myHeader = new Headers();
+ *  myHeader.append('Content-Type', 'application/json');
+ *  myHeader.append('Authorization', this.authService.getToken());
+ *
+ *  let options = new RequestOptions({ headers: myHeader });
+ * 
+ * Use this explicit if the current implementation stop work in production.
  */
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
-    // headerPrefix: YOUR_HEADER_PREFIX,
+    headerPrefix: '',
     noJwtError: true,
     globalHeaders: [{'Accept': 'application/json'}],
     tokenGetter: (() => storage.get('token').then((token: string) => token)),
@@ -79,7 +88,7 @@ export function getAuthHttp(http) {
     UserService,
     AuthService,
     CardService,
-    {provide: AuthHttp, useFactory: getAuthHttp,deps: [Http]}
+    {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]}
   ]
 })
 export class AppModule {}

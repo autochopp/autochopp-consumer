@@ -1,3 +1,4 @@
+import { Order } from './../../app/order/order';
 import { Component } from '@angular/core';
 
 import { Validators, FormBuilder } from '@angular/forms';
@@ -19,20 +20,23 @@ export class OrderPage {
 
   order: any = {};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder) {
-    this.order = this.formBuilder.group({
-      tamanho: ['', Validators.required],
-      tipo: ['', Validators.required],
-      colarinho: ['', Validators.required]
-    });
+  shoppingCart = [];
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public formBuilder: FormBuilder) {
+    this.order = this.buildNewForm();
   }
 
-  postDados(){
-    console.log(this.order.value);
+  public addToCart(): void {
+    console.log("Adding " + this.order);
+
+    this.shoppingCart.push(this.order as Order);
+    this.order = this.buildNewForm();
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad OrderPage');
+  private buildNewForm(): any {
+    return Order.buildBasicForm(this.formBuilder);
   }
-
 }

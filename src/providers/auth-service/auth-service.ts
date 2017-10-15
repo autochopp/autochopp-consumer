@@ -3,7 +3,7 @@ import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from "rxjs/Observable";
@@ -23,21 +23,10 @@ export class AuthService {
     public storage: Storage
   ) { }
 
-  public login(credentials): Observable<boolean> {
+  public login(credentials): Promise<any> {
     const url = this.apiUrl + "/authenticate";
 
-    return this.http.post(url, credentials)
-      .map(response => {
-        let token = response.json();
-        let isAuthenticated = false;
-
-        if (token) {
-          this.authenticate(token);
-          isAuthenticated = true;
-        }
-
-        return isAuthenticated;
-      });
+    return this.http.post(url, credentials).toPromise();
   }
 
   /**
@@ -45,7 +34,7 @@ export class AuthService {
    * 
    * @param token getted of API
    */
-  private authenticate(token): void {
+  public authenticate(token): void {
     // it was necessary because json response format
     this.token = token.auth_token;
 

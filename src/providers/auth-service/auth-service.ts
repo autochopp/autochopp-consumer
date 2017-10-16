@@ -6,8 +6,6 @@ import { Http } from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 import { tokenNotExpired } from 'angular2-jwt';
-import { Observable } from "rxjs/Observable";
-
 
 @Injectable()
 export class AuthService {

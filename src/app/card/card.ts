@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class Card {
 
     // Field errors
-    formErrors = {
+    public formErrors = {
         'ownerName': '',
         'ownerCPF': '',
         'cardNumber': '',
@@ -37,7 +37,7 @@ export class Card {
      * @param fb injected into your component via constructor
      * 
      */
-    getBasicForm(fb: FormBuilder): FormGroup {
+    public getBasicForm(fb: FormBuilder): FormGroup {
         return fb.group({
             ownerName: [this.ownerName, [Validators.required]],
             ownerCPF: [this.ownerCPF, [Validators.required]],

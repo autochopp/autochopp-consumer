@@ -6,7 +6,7 @@
 
 <ion-content padding class="default-bg">
     <ion-list>
-        <form [formGroup]="cardForm" (ngSubmit)="create()">
+        <form [formGroup]="cardForm" (ngSubmit)="initBuyRequest()">
             <ion-item color="secondary">
                 <ion-label floating color="dark">Nome do titular do cartão</ion-label>
                 <ion-input type="text" formControlName="ownerName" name="ownerName"></ion-input>
@@ -55,8 +55,7 @@
                     <ion-col>
                         <ion-item color="secondary">
                             <ion-label color="dark">Mês de expiração</ion-label>
-                            <ion-datetime formControlName="expirationMonth" name="expirationMonth" 
-                                displayFormat="MM"></ion-datetime>
+                            <ion-input type="text" formControlName="expirationMonth" name="expirationMonth"></ion-input>
                         </ion-item>
                     </ion-col>
                     <ion-col>

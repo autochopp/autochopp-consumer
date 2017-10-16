@@ -1,8 +1,9 @@
+import { HomeLoggedPage } from './../home-logged/home-logged';
 import { CardService } from './../../app/card/card.service';
 import { Card } from './../../app/card/card';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ToastController } from "ionic-angular";
+import { ToastController, NavController } from "ionic-angular";
 
 import scriptjs from 'scriptjs';
 
@@ -12,39 +13,51 @@ declare let PagSeguroDirectPayment;
   templateUrl: 'card-register.html',
 })
 export class CardRegisterPage {
+
   public cardForm: FormGroup;
 
   private card = new Card();
+
+  // search when user type card number
+  private brand: string;
 
   private pagseguroActive = false;
 
   public constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private navCtrl: NavController
   ) {
     // TODO add more validations
     this.cardForm = this.card.getBasicForm(this.formBuilder);
 
+    this.cardForm.valueChanges.subscribe(
+      data => this.getLastData(data)
+    );
+
     this.loadsPagseguro();
+  }
+
+  private getLastData(data: any): void {
+    Object.assign(this.card, this.cardForm.value);
   }
 
   /**
    * Request API card to register
    */
-  public create(): void {
-    const card = this.cardForm.value as Card;
-    card.hashBuyer = PagSeguroDirectPayment.getSenderHash();
-    card.hashCard = this.createCardToken();
+  public submitToServer(): void {
+    console.log("Card data when submit data is " + JSON.stringify(this.card));
 
-    this.cardService.create(card)
-      .then(result => console.log(result))
+    this.cardService.create(this.card)
+      .then(result => this.navCtrl.push(HomeLoggedPage))
       .catch(error => this.presentToast(error));
   }
 
   /**
    * Choose the brand of card from card.cardNumber.
-   * This event should be fired automatically.
+   * This event should be fired automatically when user lost 
+   * focus on card number input.
    */
   public searchBrand(): void {
     const cardBin = this.cardForm.value.cardNumber;
@@ -66,8 +79,9 @@ export class CardRegisterPage {
   /**
    * To perfom a transaction, API needs a card token.
    */
-  private createCardToken(): any {
-    let cardToken = null;
+  private initBuyRequest(): void {
+
+    this.card.hashBuyer = PagSeguroDirectPayment.getSenderHash();
 
     PagSeguroDirectPayment.createCardToken({
       cardNumber: this.card.cardNumber,
@@ -78,15 +92,13 @@ export class CardRegisterPage {
 
       success: response => {
         console.log("Card data is valid!");
-        cardToken = response.card.token;
+        this.card.hashCard = response.card.token;
+        this.submitToServer();
       },
       error: response => {
         this.presentToast("Cartão inválido. Por favor, verifique os dados do cartão.");
-        console.log(response);
       }
     });
-
-    return cardToken;
   }
 
   /**

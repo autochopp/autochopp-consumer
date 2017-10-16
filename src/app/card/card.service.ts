@@ -2,7 +2,6 @@ import { Observable } from 'rxjs/Observable';
 import { AuthHttp } from 'angular2-jwt';
 import { Card } from './card';
 
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
 import 'rxjs/add/operator/map';
@@ -33,15 +32,28 @@ export class CardService {
    * @param card with information of buyer
    */
   public create(card: Card) {
-    const body = JSON.stringify({ card });
+    // const body = JSON.stringify({ card });
 
-    console.log("Body is " + body);
+    const data = {
+      chopps : [
+        // test quantity
+        {amount: 10.0, quantity: 1, size: 1000, chopp_type: "tradicional", collar: 1}
+      ],
+      email : "teste@gmail.com",
+      card_name: "fulano",
+      birthday: '06/11/1993',
+      cpf: '04059321320',
+      phone_code: 61,
+      number: 992321231,
+      card_token: card.hashCard, 
+      sender_hash: card.hashBuyer
+    };
 
     const createURL = this.url + "/checkout/create";
 
-    return this.authHttp.post(createURL, body)
+    return this.authHttp.post(createURL, data)
       .toPromise()
-      .then(card => card.json().data as Card)
-      .catch(error => console.error(error));
+      .then(result => console.log("Purchase made successfully!"))
+      .catch(error => console.error("Some error happen: " + error));
   }
 }

@@ -18,9 +18,6 @@ export class CardRegisterPage {
 
   private card = new Card();
 
-  // search when user type card number
-  private brand: string;
-
   private pagseguroActive = false;
 
   public constructor(
@@ -41,17 +38,6 @@ export class CardRegisterPage {
 
   private getLastData(data: any): void {
     Object.assign(this.card, this.cardForm.value);
-  }
-
-  /**
-   * Request API card to register
-   */
-  public submitToServer(): void {
-    console.log("Card data when submit data is " + JSON.stringify(this.card));
-
-    this.cardService.create(this.card)
-      .then(result => this.navCtrl.push(HomeLoggedPage))
-      .catch(error => this.presentToast(error));
   }
 
   /**
@@ -79,7 +65,7 @@ export class CardRegisterPage {
   /**
    * To perfom a transaction, API needs a card token.
    */
-  private initBuyRequest(): void {
+  public initBuyRequest(): void {
 
     this.card.hashBuyer = PagSeguroDirectPayment.getSenderHash();
 
@@ -99,6 +85,17 @@ export class CardRegisterPage {
         this.presentToast("Cartão inválido. Por favor, verifique os dados do cartão.");
       }
     });
+  }
+
+  /**
+   * Request API card to register
+   */
+  private submitToServer(): void {
+    console.log("Card data when submit data is " + JSON.stringify(this.card));
+
+    this.cardService.create(this.card)
+      .then(result => this.navCtrl.push(HomeLoggedPage))
+      .catch(error => this.presentToast(error));
   }
 
   /**

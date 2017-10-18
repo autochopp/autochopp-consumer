@@ -39,11 +39,11 @@ export class CardService {
         // test quantity
         {amount: 10.0, quantity: 1, size: 1000, chopp_type: "tradicional", collar: 1}
       ],
-      card_name: "Teste Wener",
-      birthday: '06/11/1993',
-      cpf: '04095840102',
-      phone_code: 61,
-      phone_number: 992321231,
+      card_name: card.ownerName,
+      birthday: card.bornDate,
+      cpf: card.ownerCPF,
+      phone_code: card.areaCode,
+      phone_number: card.phoneNumber,
       card_token: card.hashCard, 
       sender_hash: card.hashBuyer
     };

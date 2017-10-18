@@ -18,11 +18,29 @@
                 <ion-datetime formControlName="bornDate" name="bornDate" displayFormat="DD/MM/YY"></ion-datetime>
             </ion-item>
 
-            <ion-item color="secondary">
-                <ion-label floating color="dark">Telefone</ion-label>
-                <ion-input type="text" formControlName="phoneNumber" name="phoneNumber"></ion-input>
-                <ion-label floating color="danger" *ngIf="card.formErrors.phoneNumber as value">{{value}}</ion-label>
-            </ion-item>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-5>
+                        <ion-item color="secondary">
+                            <ion-label floating color="dark">DDD</ion-label>
+                            <ion-input type="text" formControlName="areaCode" name="areaCode"></ion-input>
+                            <ion-label floating color="danger" *ngIf="card.formErrors.areaCode as value">{{value}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-8>
+                        <ion-item color="secondary">
+                            <ion-label floating color="dark">Telefone</ion-label>
+                            <ion-input type="text" formControlName="phoneNumber" name="phoneNumber"></ion-input>
+                            <ion-label floating color="danger" *ngIf="card.formErrors.phoneNumber as value">{{value}}</ion-label>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
 
             <ion-item color="secondary">
                 <ion-label floating color="dark">CPF do titular cartão</ion-label>
@@ -32,7 +50,7 @@
 
             <ion-grid>
                 <ion-row>
-                    <ion-col col-9>
+                    <ion-col col-7>
                         <ion-item color="secondary">
                             <ion-label floating color="dark">Número do cartão</ion-label>
                             <ion-input type="text" formControlName="cardNumber" name="cardNumber" (blur)="searchBrand()"></ion-input>
@@ -52,17 +70,16 @@
 
             <ion-grid>
                 <ion-row>
-                    <ion-col>
+                    <ion-col col-5>
                         <ion-item color="secondary">
-                            <ion-label color="dark">Mês de expiração</ion-label>
+                            <ion-label floating color="dark">Mês de expiração</ion-label>
                             <ion-input type="text" formControlName="expirationMonth" name="expirationMonth"></ion-input>
                         </ion-item>
                     </ion-col>
-                    <ion-col>
+                    <ion-col col-5>
                         <ion-item color="secondary">
-                            <ion-label color="dark">Ano de expiração</ion-label>
-                            <ion-datetime formControlName="expirationYear" name="expirationYear" 
-                                displayFormat="YYYY" min="2017" max="2032"></ion-datetime>
+                            <ion-label floating color="dark">Ano de expiração</ion-label>
+                            <ion-datetime formControlName="expirationYear" name="expirationYear" displayFormat="YYYY" min="2017" max="2032"></ion-datetime>
                         </ion-item>
                     </ion-col>
                 </ion-row>

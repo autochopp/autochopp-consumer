@@ -1,6 +1,7 @@
+
 import { CardService } from './card/card.service';
-import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 // App components
@@ -15,6 +16,8 @@ import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
 import { CardRegisterPage } from './../pages/card-register/card-register';
+import { OrderPage } from './../pages/order/order';
+import { ChoppsPage } from '../pages/chopps/chopps';
 
 // Providers
 import { UserService } from './user/user.service';
@@ -62,6 +65,8 @@ export function getAuthHttp(http) {
     UserRegisterPage,
     HomeLoggedPage,
     CardRegisterPage,
+    OrderPage,
+    ChoppsPage,
     AlertComponent
   ],
   imports: [
@@ -79,7 +84,9 @@ export function getAuthHttp(http) {
     TabsPage,
     UserRegisterPage,
     HomeLoggedPage,
-    CardRegisterPage
+    CardRegisterPage,
+    OrderPage,
+    ChoppsPage
   ],
   providers: [
     StatusBar,

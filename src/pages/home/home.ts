@@ -50,13 +50,13 @@ export class HomePage {
     this.showLoader();
 
     this.authService.login(this.loginData)
-      .subscribe(result => {
-        if(result) {
-          this.navCtrl.setRoot(HomeLoggedPage);
-        } else {
-          this.presentToast("Dados incorretos...");
-        }
-     
+      .then(response => {
+        let token = response.json();
+        this.authService.authenticate(token);
+
+        this.navCtrl.setRoot(HomeLoggedPage);
+      }).catch(err => {
+        this.presentToast("Dados inválidos, tente novamente...");
       });
     // after all
     this.loading.dismiss();

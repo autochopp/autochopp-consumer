@@ -33,7 +33,7 @@ export class UserRegisterPage implements OnInit {
     this.onValueChanged();
   }
 
-  create() {
+  public create(): void {
     const user = this.userForm.value;
 
     const navCtrlParams = { 'message': this.getSuccessMessage(user) };

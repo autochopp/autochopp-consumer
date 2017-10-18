@@ -1,5 +1,7 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+
+import { CardService } from './card/card.service';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
 // App components
@@ -13,6 +15,9 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
+import { PaymentPage } from './../pages/payment/payment';
+import { OrderPage } from './../pages/order/order';
+import { ChoppsPage } from '../pages/chopps/chopps';
 
 // Providers
 import { UserService } from './user/user.service';
@@ -30,11 +35,20 @@ import { Storage } from '@ionic/storage';
 let storage = new Storage({});
 
 /**
- * Global function to perform authenticated requests
+ * Global function to perform authenticated requests.
+ * This function should generate one request similar to the follow code:
+ * 
+ *  let myHeader = new Headers();
+ *  myHeader.append('Content-Type', 'application/json');
+ *  myHeader.append('Authorization', this.authService.getToken());
+ *
+ *  let options = new RequestOptions({ headers: myHeader });
+ * 
+ * Use this explicit if the current implementation stop work in production.
  */
 export function getAuthHttp(http) {
   return new AuthHttp(new AuthConfig({
-    // headerPrefix: YOUR_HEADER_PREFIX,
+    headerPrefix: '',
     noJwtError: true,
     globalHeaders: [{'Accept': 'application/json'}],
     tokenGetter: (() => storage.get('token').then((token: string) => token)),
@@ -50,6 +64,9 @@ export function getAuthHttp(http) {
     TabsPage,
     UserRegisterPage,
     HomeLoggedPage,
+    PaymentPage,
+    OrderPage,
+    ChoppsPage,
     AlertComponent
   ],
   imports: [
@@ -66,7 +83,10 @@ export function getAuthHttp(http) {
     HomePage,
     TabsPage,
     UserRegisterPage,
-    HomeLoggedPage
+    HomeLoggedPage,
+    PaymentPage,
+    OrderPage,
+    ChoppsPage
   ],
   providers: [
     StatusBar,
@@ -74,7 +94,8 @@ export function getAuthHttp(http) {
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserService,
     AuthService,
-    {provide: AuthHttp, useFactory: getAuthHttp,deps: [Http]}
+    CardService,
+    {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]}
   ]
 })
 export class AppModule {}

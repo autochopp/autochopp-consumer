@@ -1,10 +1,10 @@
-import { CardRegisterPage } from './../card-register/card-register';
+import { PaymentPage } from './../payment/payment';
 import { Order } from './../../app/order/order';
 import { Component } from '@angular/core';
 
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 
 /**
  * Generated class for the OrderPage page.
@@ -28,7 +28,7 @@ export class OrderPage {
   constructor(
     public navCtrl: NavController,
     public formBuilder: FormBuilder) {
-    this.order = this.buildNewForm();
+    this.buildNewForm();
   }
 
   /**
@@ -40,7 +40,9 @@ export class OrderPage {
     console.log("Adding " + JSON.stringify(newOrder));
 
     this.shoppingCart.push(newOrder);
-    this.order = this.buildNewForm();
+
+    // clean form
+    this.buildNewForm();
   }
 
   /**
@@ -55,10 +57,13 @@ export class OrderPage {
    */
   public goToPaymentPage(): void {
     console.log("Go to paymment page");
-    this.navCtrl.push(CardRegisterPage, {order: this.shoppingCart})
+    this.navCtrl.push(PaymentPage, {order: this.shoppingCart})
   }
 
-  private buildNewForm(): FormGroup {
-    return Order.buildBasicForm(this.formBuilder);
+  /**
+   * Reset form to new order
+   */
+  private buildNewForm(): void {
+    this.order = Order.buildBasicForm(this.formBuilder);
   }
 }

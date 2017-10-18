@@ -15,7 +15,7 @@ import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { UserRegisterPage } from './../pages/user-register/user-register';
 import { HomeLoggedPage } from '../pages/home-logged/home-logged';
-import { CardRegisterPage } from './../pages/card-register/card-register';
+import { PaymentPage } from './../pages/payment/payment';
 import { OrderPage } from './../pages/order/order';
 import { ChoppsPage } from '../pages/chopps/chopps';
 
@@ -64,7 +64,7 @@ export function getAuthHttp(http) {
     TabsPage,
     UserRegisterPage,
     HomeLoggedPage,
-    CardRegisterPage,
+    PaymentPage,
     OrderPage,
     ChoppsPage,
     AlertComponent
@@ -84,7 +84,7 @@ export function getAuthHttp(http) {
     TabsPage,
     UserRegisterPage,
     HomeLoggedPage,
-    CardRegisterPage,
+    PaymentPage,
     OrderPage,
     ChoppsPage
   ],

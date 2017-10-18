@@ -10,9 +10,9 @@ import scriptjs from 'scriptjs';
 declare let PagSeguroDirectPayment;
 
 @Component({
-  templateUrl: 'card-register.html',
+  templateUrl: 'payment.html',
 })
-export class CardRegisterPage {
+export class PaymentPage {
 
   public cardForm: FormGroup;
 

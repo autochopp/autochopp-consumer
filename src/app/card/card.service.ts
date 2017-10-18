@@ -31,14 +31,11 @@ export class CardService {
    * 
    * @param card with information of buyer
    */
-  public create(card: Card) {
+  public create(card: Card, order) {
     // const body = JSON.stringify({ card });
 
     const data = {
-      chopps : [
-        // test quantity
-        {amount: 10.0, quantity: 1, size: 1000, chopp_type: "tradicional", collar: 1}
-      ],
+      chopps : order,
       card_name: card.ownerName,
       birthday: card.bornDate,
       cpf: card.ownerCPF,

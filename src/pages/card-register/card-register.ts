@@ -3,7 +3,7 @@ import { CardService } from './../../app/card/card.service';
 import { Card } from './../../app/card/card';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ToastController, NavController } from "ionic-angular";
+import { ToastController, NavController, NavParams } from "ionic-angular";
 
 import scriptjs from 'scriptjs';
 
@@ -24,7 +24,8 @@ export class CardRegisterPage {
     private formBuilder: FormBuilder,
     private cardService: CardService,
     private toastCtrl: ToastController,
-    private navCtrl: NavController
+    private navCtrl: NavController,
+    private navParams: NavParams
   ) {
     // TODO add more validations
     this.cardForm = this.card.getBasicForm(this.formBuilder);
@@ -93,7 +94,9 @@ export class CardRegisterPage {
   private submitToServer(): void {
     console.log("Card data when submit data is " + JSON.stringify(this.card));
 
-    this.cardService.create(this.card)
+    const order = this.navParams.get('order');
+
+    this.cardService.create(this.card, order)
       .then(result => this.navCtrl.push(HomeLoggedPage))
       .catch(error => this.presentToast(error));
   }

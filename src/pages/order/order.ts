@@ -1,7 +1,8 @@
+import { CardRegisterPage } from './../card-register/card-register';
 import { Order } from './../../app/order/order';
 import { Component } from '@angular/core';
 
-import { Validators, FormBuilder } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -22,21 +23,42 @@ export class OrderPage {
 
   shoppingCart = [];
 
+  totalValue = 0;
+
   constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams, 
+    public navCtrl: NavController,
     public formBuilder: FormBuilder) {
     this.order = this.buildNewForm();
   }
 
+  /**
+   * Adding chopp to shopping cart
+   */
   public addToCart(): void {
-    console.log("Adding " + this.order);
+    const newOrder = this.order.value as Order;
 
-    this.shoppingCart.push(this.order as Order);
+    console.log("Adding " + JSON.stringify(newOrder));
+
+    this.shoppingCart.push(newOrder);
     this.order = this.buildNewForm();
   }
 
-  private buildNewForm(): any {
+  /**
+   * See if cart shopping is empty
+   */
+  public isCartEmpty(): boolean {
+    return this.shoppingCart.length === 0;
+  }
+
+  /**
+   * FInish chooses and go to payment
+   */
+  public goToPaymentPage(): void {
+    console.log("Go to paymment page");
+    this.navCtrl.push(CardRegisterPage, {order: this.shoppingCart})
+  }
+
+  private buildNewForm(): FormGroup {
     return Order.buildBasicForm(this.formBuilder);
   }
 }

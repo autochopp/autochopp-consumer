@@ -12,10 +12,7 @@ export class Order {
         private chopp_type: number,
         // Three types: 0, 1 and 2
         private collar: number
-    ) {
-        // after set all fields, calculate price
-        this.calculateAmount();
-    }
+    ) {}
 
     public static buildBasicForm(formBuilder: FormBuilder): FormGroup {
         return formBuilder.group({
@@ -27,9 +24,15 @@ export class Order {
     }
 
     /**
-     * Calculate price of order
+     * Calculate price of chopp
      */
-    private calculateAmount(): void {
-        this.amount = this.quantity * 5;
+    public static setAmountChopp(size_chopp: number): number {
+      if (size_chopp == 500){
+          return 7.00;
+      }
+      else if(size_chopp == 1000){
+          return 12.00;
+      }
     }
+
 }

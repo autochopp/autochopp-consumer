@@ -36,6 +36,8 @@ export class OrderPage {
    */
   public addToCart(): void {
     const newOrder = this.order.value as Order;
+    newOrder['amount'] = Order.setAmountChopp(newOrder['size']);
+    this.totalValue += newOrder['amount'] * newOrder['quantity'];
 
     console.log("Adding " + JSON.stringify(newOrder));
 

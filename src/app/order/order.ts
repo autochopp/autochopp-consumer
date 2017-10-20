@@ -1,21 +1,18 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 export class Order {
-    private amount: number;
+    public amount: number;
 
     constructor(
         // integer quantity of chopps
-        private quantity: number,
+        public quantity: number,
         // 500ml or 1000ml
-        private size: number,
+        public size: number,
         // string: tradicional ou vinho
-        private chopp_type: number,
+        public chopp_type: number,
         // Three types: 0, 1 and 2
-        private collar: number
-    ) {
-        // after set all fields, calculate price
-        this.calculateAmount();
-    }
+        public collar: number
+    ) {}
 
     public static buildBasicForm(formBuilder: FormBuilder): FormGroup {
         return formBuilder.group({
@@ -27,9 +24,15 @@ export class Order {
     }
 
     /**
-     * Calculate price of order
+     * Calculate price of chopp
      */
-    private calculateAmount(): void {
-        this.amount = this.quantity * 5;
+    public static calculateAmount(size_chopp: number): number {
+      if (size_chopp == 500){
+          return 7.00;
+      }
+      else if(size_chopp == 1000){
+          return 12.00;
+      }
     }
+
 }

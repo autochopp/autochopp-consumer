@@ -2,16 +2,9 @@ import { PaymentPage } from './../payment/payment';
 import { Order } from './../../app/order/order';
 import { Component } from '@angular/core';
 
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { NavController } from 'ionic-angular';
-
-/**
- * Generated class for the OrderPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @Component({
   selector: 'page-order',
@@ -19,7 +12,7 @@ import { NavController } from 'ionic-angular';
 })
 export class OrderPage {
 
-  order: any = {};
+  order: FormGroup;
 
   shoppingCart = [];
 
@@ -35,7 +28,10 @@ export class OrderPage {
    * Adding chopp to shopping cart
    */
   public addToCart(): void {
-    const newOrder = this.order.value as Order;
+    let newOrder = this.order.value as Order;
+    newOrder.amount = Order.calculateAmount(newOrder.size);
+
+    this.totalValue += newOrder['amount'] * newOrder['quantity'];
 
     console.log("Adding " + JSON.stringify(newOrder));
 

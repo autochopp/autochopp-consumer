@@ -1,8 +1,11 @@
-import { HomePage } from './../pages/home/home';
+import { Storage } from '@ionic/storage';
 import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AuthService } from '../providers/auth-service/auth-service';
+import { HomePage } from './../pages/home/home';
+import { HomeLoggedPage } from './../pages/home-logged/home-logged';
 
 @Component({
   templateUrl: 'app.html'
@@ -10,12 +13,20 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   rootPage:any = HomePage;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(
+    platform: Platform,
+    statusBar: StatusBar,
+    splashScreen: SplashScreen,
+    authService: AuthService
+  ) {
     platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      if(authService.isLogged()) {
+        this.rootPage = HomeLoggedPage
+      } else {
+        console.log("None user authenticated.");
+      }
     });
   }
 }

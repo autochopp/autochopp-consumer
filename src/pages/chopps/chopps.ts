@@ -24,9 +24,10 @@ export class ChoppsPage {
   createArrayOfOrders(){
     
     var arrayOfOrders : any = [
-      {number:15675, data:"25-09-2017"},
-      {number:15676, data:"26-09-2017"},
-      {number:15677, data:"27-09-2017"}
+      {number:15675, size: "1000", chopp_type: "tradicional", collar: "2"},
+      {number:15675, size: "500", chopp_type: "vinho", collar: "0"},
+      {number:15675, size: "500", chopp_type: "vinho", collar: "1"},
+      {number:15675, size: "1000", chopp_type: "tradicional", collar: "0"},
     ]
 
     //var ordersJSON : JSON;

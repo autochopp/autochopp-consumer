@@ -15,3 +15,5 @@ Install the lasted version of graddle and build with:
 ```
 ionic cordova run android
 ```
+
+To use live reload, just add `--livereload` flag

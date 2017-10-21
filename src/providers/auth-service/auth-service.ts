@@ -10,7 +10,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 @Injectable()
 export class AuthService {
 
-  apiUrl = 'http://localhost:3000';
+  apiUrl = 'https://fast-retreat-18030.herokuapp.com';
 
   token: string;
 

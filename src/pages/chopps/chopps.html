@@ -12,10 +12,24 @@
   <ion-card *ngFor="let order of orders">
 
     <ion-card-content>
-      <span class="chopp-header">
-        <ion-icon name="beer"></ion-icon>
-      </span> {{order.chopp_type}} de {{order.size}} ml
-      <span *ngIf="order.collar!=='0'"> com colarinho de {{order.collar}} dedo</span>
+      <ion-grid>
+        <ion-row>
+          <ion-col col-9>
+            <h1 class="chopp-header">
+              <ion-icon name="beer"></ion-icon> {{order.chopp_type}}
+            </h1>
+            <p>
+              <span *ngIf="order.collar!=='0'"> Com colarinho de {{order.collar}}</span>
+            </p>
+            <p>
+              {{order.size}} ml
+            </p>
+          </ion-col>
+          <ion-col col-3>
+            <button ion-button color="primary" block>Usar</button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-card-content>
   </ion-card>
 

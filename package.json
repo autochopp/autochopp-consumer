@@ -4,6 +4,9 @@
     "author": "Ionic Framework",
     "homepage": "http://ionicframework.com/",
     "private": true,
+    "config": {
+        "ionic_webpack": "./config/webpack.config.js"
+    },
     "scripts": {
         "clean": "ionic-app-scripts clean",
         "build": "ionic-app-scripts build",
@@ -43,7 +46,7 @@
         "zone.js": "0.8.12"
     },
     "devDependencies": {
-        "@ionic/app-scripts": "2.1.4",
+        "@ionic/app-scripts": "^3.0.1",
         "typescript": "2.3.4"
     },
     "description": "An Ionic project",

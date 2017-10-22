@@ -1,17 +1,16 @@
-import { Observable } from 'rxjs/Observable';
-import { AuthHttp } from 'angular2-jwt';
-import { Card } from './card';
-
 import { Injectable } from '@angular/core';
 
-import 'rxjs/add/operator/map';
+import { Card } from './card';
 
+import { Observable } from 'rxjs/Observable';
+import { AuthHttp } from 'angular2-jwt';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
+
+import { ENV } from '@app/env';
 
 @Injectable()
 export class CardService {
-
-  url = "http://localhost:3000";
 
   constructor(
     private authHttp: AuthHttp
@@ -21,7 +20,7 @@ export class CardService {
    * Start pagseguro session through our server
    */
   public startSession(): Observable<any> {
-    const startSession = this.url + "/getsessionid";
+    const startSession = ENV.api + "/getsessionid";
 
     return this.authHttp.get(startSession).map(res => res.json());
   }
@@ -45,7 +44,7 @@ export class CardService {
       sender_hash: card.hashBuyer
     };
 
-    const createURL = this.url + "/checkout/create";
+    const createURL = ENV.api + "/checkout/create";
 
     return this.authHttp.post(createURL, data)
       .toPromise()

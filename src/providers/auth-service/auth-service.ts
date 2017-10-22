@@ -2,6 +2,7 @@ import { JwtHelper } from 'angular2-jwt';
 import { Storage } from '@ionic/storage';
 import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
+import { ENV } from '@app/env';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -9,8 +10,6 @@ import { tokenNotExpired } from 'angular2-jwt';
 
 @Injectable()
 export class AuthService {
-
-  apiUrl = 'https://fast-retreat-18030.herokuapp.com';
 
   token: string;
 
@@ -22,7 +21,7 @@ export class AuthService {
   ) { }
 
   public login(credentials): Promise<any> {
-    const url = this.apiUrl + "/authenticate";
+    const url = ENV.api + "/authenticate";
 
     return this.http.post(url, credentials).toPromise();
   }

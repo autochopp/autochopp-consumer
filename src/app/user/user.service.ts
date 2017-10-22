@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-
 import { Http } from '@angular/http';
+
+import { ENV } from '@app/env';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -8,11 +9,11 @@ import { User } from './user';
 
 @Injectable()
 export class UserService {
-  private api_url: string;
+  
 
-  constructor(private http: Http) {
-    this.api_url = 'https://fast-retreat-18030.herokuapp.com';
-  }
+  constructor(
+    private http: Http
+  ) { }
 
   create(user: User) {
     // tokenize user data. 
@@ -25,7 +26,7 @@ export class UserService {
       }
     };
 
-    const createURL = this.api_url + '/users/';
+    const createURL = ENV.api + '/users/';
 
     return this.http.post(createURL, userData)
       .toPromise()

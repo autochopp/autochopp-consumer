@@ -18,6 +18,7 @@ import { HomeLoggedPage } from '../pages/home-logged/home-logged';
 import { PaymentPage } from './../pages/payment/payment';
 import { OrderPage } from './../pages/order/order';
 import { ChoppsPage } from '../pages/chopps/chopps';
+import { AdminPage } from '../pages/admin/admin';
 
 // Providers
 import { UserService } from './user/user.service';
@@ -67,6 +68,7 @@ export function getAuthHttp(http) {
     PaymentPage,
     OrderPage,
     ChoppsPage,
+    AdminPage,
     AlertComponent
   ],
   imports: [
@@ -86,7 +88,8 @@ export function getAuthHttp(http) {
     HomeLoggedPage,
     PaymentPage,
     OrderPage,
-    ChoppsPage
+    ChoppsPage,
+    AdminPage
   ],
   providers: [
     StatusBar,

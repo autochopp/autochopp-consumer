@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { ChoppsServiceProvider } from '../../providers/chopps-service/chopps-service';
+import 'rxjs/add/operator/map';
+
 
 /**
  * Generated class for the ChoppsPage page.
@@ -16,32 +19,17 @@ export class ChoppsPage {
 
   orders : any [];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-    this.orders = this.getData();
-
-  }
-
-  createArrayOfOrders(){
-    
-    var arrayOfOrders : any = [
-      {number:15675, size: "1000", chopp_type: "Tradicional", collar: "2" , qrcode: "teste1", isHidden: true},
-      {number:15675, size: "500", chopp_type: "Vinho", collar: "0", qrcode: "teste2", isHidden: true},
-      {number:15675, size: "500", chopp_type: "Vinho", collar: "1", qrcode: "teste3", isHidden: true},
-      {number:15675, size: "1000", chopp_type: "Tradicional", collar: "0", qrcode: "teste4", isHidden: true},
-    ]
-
-    //var ordersJSON : JSON;
-    //ordersJSON = <JSON> arrayOfOrders;
-
-    console.log( arrayOfOrders );
-
-    return arrayOfOrders;
-
-  }
-
-  getData(){
-
-    return this.createArrayOfOrders();
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public chopppsServiceProvider: ChoppsServiceProvider
+  ) 
+    {
+    // this.orders = this.getData();
+    this.chopppsServiceProvider.getChopps().then(res => {
+      res.map(x => x['isHidden'] = true);
+      this.orders = res;
+    });
   }
 
   ionViewDidLoad() {

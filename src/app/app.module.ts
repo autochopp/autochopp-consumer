@@ -30,6 +30,7 @@ import { HttpModule, Http } from "@angular/http";
 import { IonicStorageModule } from "@ionic/storage";
 import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { Storage } from '@ionic/storage';
+import { QRCodeModule } from 'angular2-qrcode';
 
 
 let storage = new Storage({});
@@ -73,7 +74,8 @@ export function getAuthHttp(http) {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    QRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [

@@ -26,8 +26,11 @@
             </p>
           </ion-col>
           <ion-col col-3>
-            <button ion-button color="primary" block>Usar</button>
+            <button ion-button (click)="order.isHidden = !order.isHidden" color="primary" block>Usar</button>
           </ion-col>
+          <div class="qr-code" [hidden]="order.isHidden">
+            <qr-code [value]="order.qrcode" [size]="250"></qr-code>
+          </div> 
         </ion-row>
       </ion-grid>
     </ion-card-content>

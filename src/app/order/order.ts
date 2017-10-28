@@ -30,8 +30,8 @@ export class Order {
       if (size_chopp == 500){
           return 7.00;
       }
-      else if(size_chopp == 1000){
-          return 12.00;
+      else if(size_chopp == 700){
+          return 10.00;
       }
     }
 

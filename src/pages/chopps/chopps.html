@@ -21,9 +21,8 @@
             <p>
               {{order.size}} ml
             </p>
-            <p>
-              <span *ngIf="order.collar!=='0'"> Com colarinho de {{order.collar}}</span>
-            </p>
+            <span *ngIf="order.collar === 1 "> Com pouco colarinho </span>
+            <span *ngIf="order.collar === 2 "> Com muito colarinho </span>
           </ion-col>
           
           <ng-container *ngIf="order.qrcode !== null">

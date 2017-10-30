@@ -12,6 +12,7 @@ import { tokenNotExpired } from 'angular2-jwt';
 export class AuthService {
 
   token: string;
+  user_type: string;
 
   jwtHelper: JwtHelper = new JwtHelper();
 
@@ -34,9 +35,10 @@ export class AuthService {
   public authenticate(token): void {
     // it was necessary because json response format
     this.token = token.auth_token;
-
     this.storage.set('token', this.token);
 
+    this.user_type = token.user_type;
+    
     // user id and expiration token date
     console.log(this.jwtHelper.decodeToken(this.token));
   }

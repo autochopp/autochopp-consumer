@@ -1,4 +1,5 @@
 import { HomeLoggedPage } from './../home-logged/home-logged';
+import { AdminPage } from './../admin/admin';
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController, App } from 'ionic-angular';
 
@@ -54,7 +55,13 @@ export class HomePage {
         let token = response.json();
         this.authService.authenticate(token);
 
-        this.navCtrl.setRoot(HomeLoggedPage);
+        let user_type = this.authService.user_type;
+
+        if(user_type == "admin"){
+          this.navCtrl.setRoot(AdminPage);
+        }else{
+          this.navCtrl.setRoot(HomeLoggedPage);        
+        }
       }).catch(err => {
         this.presentToast("Dados inválidos, tente novamente...");
       });

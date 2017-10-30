@@ -22,6 +22,7 @@ import { ChoppsPage } from '../pages/chopps/chopps';
 // Providers
 import { UserService } from './user/user.service';
 import { AuthService } from '../providers/auth-service/auth-service';
+import { ChoppsServiceProvider } from '../providers/chopps-service/chopps-service';
 
 // Another ionic/angular components
 import { StatusBar } from '@ionic-native/status-bar';
@@ -30,6 +31,7 @@ import { HttpModule, Http } from "@angular/http";
 import { IonicStorageModule } from "@ionic/storage";
 import { AuthHttp, AuthConfig } from "angular2-jwt";
 import { Storage } from '@ionic/storage';
+import { QRCodeModule } from 'angular2-qrcode';
 
 
 let storage = new Storage({});
@@ -73,7 +75,8 @@ export function getAuthHttp(http) {
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    QRCodeModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -95,7 +98,8 @@ export function getAuthHttp(http) {
     UserService,
     AuthService,
     CardService,
-    {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]}
+    {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},
+    ChoppsServiceProvider
   ]
 })
 export class AppModule {}

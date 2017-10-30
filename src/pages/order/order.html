@@ -11,32 +11,30 @@
         <ion-label color="dark">Tamanho</ion-label>
         <ion-select name="size" formControlName="size" interface="popover">
           <ion-option value="500">500 ml</ion-option>
-          <ion-option value="1000">1 L</ion-option>
+          <ion-option value="700">700 ml</ion-option>
         </ion-select>
       </ion-item>
-
+      
       <ion-item color="secondary">
         <ion-label color="dark">Tipo</ion-label>
         <ion-select name="chopp_type" formControlName="chopp_type" interface="popover">
           <ion-option value="tradicional">Tradicional</ion-option>
-          <ion-option value="vinho">Vinho</ion-option>
         </ion-select>
       </ion-item>
-
+      
       <ion-item color="secondary">
         <ion-label color="dark">Colarinho</ion-label>
         <ion-select name="collar" formControlName="collar" interface="popover">
-          <ion-option value="0">Sem colarinho</ion-option>
-          <ion-option value="1">Um dedo</ion-option>
-          <ion-option value="2">Dois dedos</ion-option>
+          <ion-option value="1">Pouco</ion-option>
+          <ion-option value="2">Muito</ion-option>
         </ion-select>
       </ion-item>
-
+      
       <ion-item color="secondary">
         <ion-label floating color="dark">Quantidade</ion-label>
         <ion-input type="text" name="quantity" formControlName="quantity" interface="popover"></ion-input>
       </ion-item>
-
+      
       <button [disabled]="order.invalid" ion-button full block color="danger">Adicionar ao Carrinho</button>
     </ion-list>
   </form>
@@ -47,13 +45,16 @@
           <ion-icon name="beer"></ion-icon> x{{item.quantity}}
         </span>
         {{item.chopp_type}} de {{item.size}} ml 
-        <span *ngIf="item.collar!=='0'">
-          com colarinho de {{item.collar}} dedo
+        <span *ngIf="item.collar==='1'">
+          com pouco colarinho
+        </span>
+        <span *ngIf="item.collar==='2'">
+          com muito colarinho
         </span>
       </p>
     </ion-card-content>
   </ion-card>
-
+  
   <h3>Valor total {{totalValue}} R$</h3>
   
   <button [disabled]="isCartEmpty()" ion-button icon-start (click)="goToPaymentPage()" color="primary" block>Finalizar compra</button>

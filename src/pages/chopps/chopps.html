@@ -1,36 +1,44 @@
 <ion-header>
-
+  
   <ion-navbar>
     <ion-title>Meus Chopps</ion-title>
   </ion-navbar>
-
+  
 </ion-header>
 
 
 <ion-content padding class="default-bg">
-
+  
   <ion-card *ngFor="let order of orders">
-
+    
     <ion-card-content>
       <ion-grid>
         <ion-row>
           <ion-col col-9>
             <h1 class="chopp-header">
-              <ion-icon name="beer"></ion-icon> {{order.chopp_type}}
+              <ion-icon name="beer"></ion-icon> Chopp {{order.chopp_type}}
             </h1>
-            <p>
-              <span *ngIf="order.collar!=='0'"> Com colarinho de {{order.collar}}</span>
-            </p>
             <p>
               {{order.size}} ml
             </p>
+            <span *ngIf="order.collar === 1 "> Com pouco colarinho </span>
+            <span *ngIf="order.collar === 2 "> Com muito colarinho </span>
           </ion-col>
-          <ion-col col-3>
-            <button ion-button color="primary" block>Usar</button>
-          </ion-col>
+          
+          <ng-container *ngIf="order.qrcode !== null">
+            <ion-col col-3>
+              <button ion-button (click)="order.isHidden = !order.isHidden" color="primary" block>Usar</button>
+            </ion-col> 
+            <div class="qr-code" [hidden]="order.isHidden">
+              <qr-code [value]="order.qrcode" [size]="250"></qr-code>
+            </div>
+          </ng-container>
+          <h2 *ngIf="order.qrcode === null">
+            Aguardando Pagamento
+          </h2>
         </ion-row>
       </ion-grid>
     </ion-card-content>
   </ion-card>
-
+  
 </ion-content>

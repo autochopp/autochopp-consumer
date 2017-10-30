@@ -41,6 +41,16 @@ export class OrderPage {
     this.buildNewForm();
   }
 
+
+  /**
+   * Removing chopp to shopping cart
+   */
+  public removeToCart(order): void {
+    let index = this.shoppingCart.indexOf(order);
+    this.shoppingCart.splice(index, 1);
+    this.totalValue -= order.amount * order.quantity
+  }
+
   /**
    * See if cart shopping is empty
    */

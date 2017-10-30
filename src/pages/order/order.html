@@ -40,9 +40,14 @@
   </form>
   <ion-card *ngFor="let item of shoppingCart">
     <ion-card-content>
+      <p>
+        <button item-right clear id="remove-item" (click)='removeToCart(item)'>
+          <ion-icon name="close-circle"></ion-icon>
+        </button>
+      </p>
       <p color="dark" class="chopp-order">
         <span class="chopp-header">
-          <ion-icon name="beer"></ion-icon> x{{item.quantity}}
+          <ion-icon name="beer"></ion-icon> x{{item.quantity}} Chopp
         </span>
         {{item.chopp_type}} de {{item.size}} ml 
         <span *ngIf="item.collar==='1'">
@@ -51,11 +56,12 @@
         <span *ngIf="item.collar==='2'">
           com muito colarinho
         </span>
+        
       </p>
     </ion-card-content>
   </ion-card>
   
-  <h3>Valor total {{totalValue}} R$</h3>
+  <h3>Valor total R$ {{totalValue}}</h3>
   
   <button [disabled]="isCartEmpty()" ion-button icon-start (click)="goToPaymentPage()" color="primary" block>Finalizar compra</button>
 </ion-content>

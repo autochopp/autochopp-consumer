@@ -3,7 +3,7 @@ import { CardService } from './../../app/card/card.service';
 import { Card } from './../../app/card/card';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ToastController, NavController, NavParams } from "ionic-angular";
+import { ToastController, NavController, LoadingController, NavParams } from "ionic-angular";
 
 import scriptjs from 'scriptjs';
 
@@ -15,6 +15,9 @@ declare let PagSeguroDirectPayment;
 export class PaymentPage {
   
   public cardForm: FormGroup;
+
+  // used by showLoader() method
+  loading: any;
   
   private card = new Card();
   
@@ -24,6 +27,7 @@ export class PaymentPage {
     private formBuilder: FormBuilder,
     private cardService: CardService,
     private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController,    
     private navCtrl: NavController,
     private navParams: NavParams
   ) {
@@ -83,7 +87,7 @@ export class PaymentPage {
         this.submitToServer();
       },
       error: response => {
-        this.presentToast("Cartão inválido. Por favor, verifique os dados do cartão.");
+        this.presentToast("Cartão inválido. Por favor, verifique os dados do cartão.", 5000);
       }
     });
   }
@@ -92,6 +96,7 @@ export class PaymentPage {
   * Request API card to register
   */
   private submitToServer(): void {
+    this.showLoader();    
     console.log("Card data when submit data is " + JSON.stringify(this.card));
     
     const order = this.navParams.get('order');
@@ -99,9 +104,10 @@ export class PaymentPage {
     this.cardService.create(this.card, order)
     .then(result => {
       this.navCtrl.push(HomeLoggedPage);
-      this.presentToast("Compra efetuada,\nAguardando pagamento.")
+      this.presentToast("Compra efetuada,\nAguardando pagamento.", 5000)
     })      
-    .catch(error => this.presentToast(error.json().join('\n')));
+    .catch(error => this.presentToast(error.json().join('\n'), 10000));
+    this.loading.dismiss();    
   }
   
   /**
@@ -131,11 +137,11 @@ export class PaymentPage {
     this.pagseguroActive = true;
   }
   
-  private presentToast(message): void {
+  private presentToast(message, duration): void {
     let toast = this.toastCtrl.create({
       message: message,
       position: 'bottom',
-      duration: 10000,
+      duration: duration,
       // dismissOnPageChange: true
     });
     
@@ -144,6 +150,14 @@ export class PaymentPage {
     });
     
     toast.present();
+  }
+
+  private showLoader(): void {
+    this.loading = this.loadingCtrl.create({
+      content: 'Processando...'
+    });
+
+    this.loading.present();
   }
 }
 

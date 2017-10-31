@@ -46,9 +46,6 @@ export class CardService {
 
     const createURL = ENV.api + "/checkout/create";
 
-    return this.authHttp.post(createURL, data)
-      .toPromise()
-      .then(result => console.log("Purchase made successfully!"))
-      .catch(error => console.error("Some error happen: " + error));
+    return this.authHttp.post(createURL, data).toPromise()
   }
 }

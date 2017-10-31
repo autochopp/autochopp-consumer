@@ -13,13 +13,13 @@ declare let PagSeguroDirectPayment;
   templateUrl: 'payment.html',
 })
 export class PaymentPage {
-
+  
   public cardForm: FormGroup;
-
+  
   private card = new Card();
-
+  
   private pagseguroActive = false;
-
+  
   public constructor(
     private formBuilder: FormBuilder,
     private cardService: CardService,
@@ -29,28 +29,28 @@ export class PaymentPage {
   ) {
     // TODO add more validations
     this.cardForm = this.card.getBasicForm(this.formBuilder);
-
+    
     this.cardForm.valueChanges.subscribe(
       data => this.getLastData(data)
     );
-
+    
     this.loadsPagseguro();
   }
-
+  
   private getLastData(data: any): void {
     Object.assign(this.card, this.cardForm.value);
   }
-
+  
   /**
-   * Choose the brand of card from card.cardNumber.
-   * This event should be fired automatically when user lost 
-   * focus on card number input.
-   */
+  * Choose the brand of card from card.cardNumber.
+  * This event should be fired automatically when user lost 
+  * focus on card number input.
+  */
   public searchBrand(): void {
     const cardBin = this.cardForm.value.cardNumber;
-
+    
     console.log("CardBin sequence: " + cardBin);
-
+    
     PagSeguroDirectPayment.getBrand({
       cardBin: cardBin,
       success: response => {
@@ -62,21 +62,21 @@ export class PaymentPage {
       }
     });
   }
-
+  
   /**
-   * To perfom a transaction, API needs a card token.
-   */
+  * To perfom a transaction, API needs a card token.
+  */
   public initBuyRequest(): void {
-
+    
     this.card.hashBuyer = PagSeguroDirectPayment.getSenderHash();
-
+    
     PagSeguroDirectPayment.createCardToken({
       cardNumber: this.card.cardNumber,
       cvv: this.card.securityCode,
       expirationMonth: this.card.expirationMonth,
       expirationYear: this.card.expirationYear,
       brand: this.card.brand,
-
+      
       success: response => {
         console.log("Card data is valid!");
         this.card.hashCard = response.card.token;
@@ -87,60 +87,63 @@ export class PaymentPage {
       }
     });
   }
-
+  
   /**
-   * Request API card to register
-   */
+  * Request API card to register
+  */
   private submitToServer(): void {
     console.log("Card data when submit data is " + JSON.stringify(this.card));
-
+    
     const order = this.navParams.get('order');
-
+    
     this.cardService.create(this.card, order)
-      .then(result => this.navCtrl.push(HomeLoggedPage))
-      .catch(error => this.presentToast(error));
+    .then(result => {
+      this.navCtrl.push(HomeLoggedPage);
+      this.presentToast("Compra efetuada,\nAguardando pagamento.")
+    })      
+    .catch(error => this.presentToast(error.json().join('\n')));
   }
-
+  
   /**
-   * Loads pagseguro's javascript into front-end view.
-   */
+  * Loads pagseguro's javascript into front-end view.
+  */
   private loadsPagseguro(): void {
-
+    
     let pagseguroLibURL = 'https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js';
     if (!this.pagseguroActive) {
       scriptjs(pagseguroLibURL, ()=> {
-      // API should generate ID to be consumer here
+        // API should generate ID to be consumer here
         this.cardService.startSession()
-            .subscribe(data => this.openSession(data));
+        .subscribe(data => this.openSession(data));
       });
     } else {
       // Just use pagseguro
     }
   }
-
+  
   /**
-   * Set pagseguro id, activating PagSeguroDirectPayment use
-   * 
-   * @param result is created in API to be used in JS calls
-   */
+  * Set pagseguro id, activating PagSeguroDirectPayment use
+  * 
+  * @param result is created in API to be used in JS calls
+  */
   private openSession(result): void {
     PagSeguroDirectPayment.setSessionId(result);
     this.pagseguroActive = true;
   }
-
+  
   private presentToast(message): void {
     let toast = this.toastCtrl.create({
       message: message,
-      duration: 5000,
       position: 'bottom',
-      dismissOnPageChange: true
+      duration: 10000,
+      // dismissOnPageChange: true
     });
-
+    
     toast.onDidDismiss(() => {
       console.log('Dismissed toast');
     });
-
+    
     toast.present();
   }
-
 }
+

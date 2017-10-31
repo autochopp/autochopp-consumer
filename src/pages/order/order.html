@@ -31,9 +31,20 @@
       </ion-item>
       
       <ion-item color="secondary">
-        <ion-label floating color="dark">Quantidade</ion-label>
-        <ion-input type="text" name="quantity" formControlName="quantity" interface="popover"></ion-input>
-      </ion-item>
+          <ion-label color="dark">Quantidade</ion-label>
+          <ion-select name="quantity" formControlName="quantity" interface="popover">
+            <ion-option value="1">1</ion-option>
+            <ion-option value="2">2</ion-option>
+            <ion-option value="3">3</ion-option>
+            <ion-option value="4">4</ion-option>
+            <ion-option value="5">5</ion-option>
+            <ion-option value="6">6</ion-option>
+            <ion-option value="7">7</ion-option>
+            <ion-option value="8">8</ion-option>
+            <ion-option value="9">9</ion-option>
+            <ion-option value="10">10</ion-option>
+          </ion-select>
+        </ion-item>
       
       <button [disabled]="order.invalid" ion-button full block color="danger">Adicionar ao Carrinho</button>
     </ion-list>

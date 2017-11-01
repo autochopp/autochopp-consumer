@@ -43,6 +43,14 @@ export class AuthService {
     console.log(this.jwtHelper.decodeToken(this.token));
   }
 
+    /**
+   * Clear session
+   */
+  public logout(): void {
+    this.storage.remove('token')
+    this.token = null
+  }
+
   /**
    * Uses function of angular2-jwt
    */

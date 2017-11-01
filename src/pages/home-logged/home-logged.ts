@@ -3,7 +3,9 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import { OrderPage } from  '../order/order';
-import { ChoppsPage } from '../chopps/chopps'
+import { ChoppsPage } from '../chopps/chopps';
+import { HomePage } from '../home/home';
+
 
 /**
  * Generated class for the HomeLoggedPage page.
@@ -32,6 +34,11 @@ export class HomeLoggedPage {
 
   goToChoppsPage(): void {
     this.navCtrl.push(ChoppsPage);
+  }
+
+  logout(): void{
+    this.authService.logout();
+    this.navCtrl.push(HomePage);
   }
 
 }

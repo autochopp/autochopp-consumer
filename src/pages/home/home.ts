@@ -69,14 +69,6 @@ export class HomePage {
     this.loading.dismiss();
   }
 
-  /**
-   * Clear session
-   */
-  public logout(): void {
-    this.storage.remove('token');
-    this.user = null;
-  }
-
   // TODO refactor this
   private updateUserSession(): void {
     this.storage.get('user')

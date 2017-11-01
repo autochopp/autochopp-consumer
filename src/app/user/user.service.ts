@@ -28,13 +28,10 @@ export class UserService {
 
     const createURL = ENV.api + '/users/';
 
-    return this.http.post(createURL, userData)
-      .toPromise()
-      .then(res => res.json().data as User)
-      .catch(this.handleError);
+    return this.http.post(createURL, userData).toPromise()
   }
 
-  private handleError(error: any): Promise<any> {
-    return Promise.reject(error.message || error);
-  }
+  // private handleError(error: any): Promise<any> {
+  //   return Promise.reject(error.message || error);
+  // }
 }

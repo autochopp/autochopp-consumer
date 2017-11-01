@@ -4,21 +4,24 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="default-bg">
-  <h2 text-center>Hora de tomar uma!</h2>
+<ion-content padding class="default-bg" align="center">
+  
+  <ion-img width="154.25" height="159" src="assets/logosuperior.png"></ion-img>
+  <ion-img width="238.25" height="63" src="assets/logoinferior.png"></ion-img>
+  
   <ion-item color="secondary">
-    <ion-label floating color="dark">Email</ion-label>
+    <ion-label floating color="light">Email</ion-label>
     <ion-input [(ngModel)]="loginData.email" name="email" type="text"></ion-input>
   </ion-item>
-
+  
   <ion-item color="secondary">
-    <ion-label floating color="dark">Senha</ion-label>
+    <ion-label floating color="light">Senha</ion-label>
     <ion-input [(ngModel)]="loginData.password" name="password" type="password"></ion-input>
   </ion-item>
-
-  <div padding>
-    <button ion-button (click)="doLogin()" color="primary" block>Login</button>
+  
+  <div padding class="button-div">
+    <button ion-button (click)="doLogin()" color="primary" block>Entrar</button>
     <button ion-button (click)="pushPage()" color="light" block>Cadastrar</button>
   </div>
-
+  
 </ion-content>

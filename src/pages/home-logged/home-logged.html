@@ -4,9 +4,18 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding class="default-bg">
 
-  <div padding>
+
+<ion-content padding class="default-bg" align="center"> 
+
+  <div padding class="logout-button">
+    <button ion-button icon-start (click)="goToOrderPage()" type="submit" color="primary" block> Sair </button>
+  </div>  
+
+  <ion-img width="154.25" height="159" src="assets/logosuperior.png"></ion-img>
+  <ion-img width="238.25" height="63" src="assets/logoinferior.png"></ion-img>
+  
+  <div padding class="order-button">
     <button ion-button icon-start (click)="goToOrderPage()" type="submit" color="primary" block>
         <ion-icon name="cart"></ion-icon> Comprar 
       </button>
@@ -17,4 +26,5 @@
       <ion-icon name="beer"></ion-icon> Meus chopps
     </button>
   </div>
+
 </ion-content>

@@ -20,14 +20,14 @@
             </h1>
             <p>
               {{order.size}} ml
+              <span *ngIf="order.collar === 1 "> Com pouco colarinho </span>
+              <span *ngIf="order.collar === 2 "> Com muito colarinho </span>
             </p>
-            <span *ngIf="order.collar === 1 "> Com pouco colarinho </span>
-            <span *ngIf="order.collar === 2 "> Com muito colarinho </span>
           </ion-col>
           
           <ng-container *ngIf="order.qrcode !== null">
             <ion-col col-3>
-              <button ion-button (click)="order.isHidden = !order.isHidden" color="primary" block>Usar</button>
+              <button ion-button (click)="order.isHidden = !order.isHidden" color="shadow" block>Usar</button>
             </ion-col> 
             <div class="qr-code" [hidden]="order.isHidden">
               <qr-code [value]="order.qrcode" [size]="250"></qr-code>

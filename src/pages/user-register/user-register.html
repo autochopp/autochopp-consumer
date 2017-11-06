@@ -1,39 +1,39 @@
 <ion-header>
-    <ion-navbar>
-        <ion-title>Cadastre-se</ion-title>
-    </ion-navbar>
+  <ion-navbar>
+    <ion-title>Cadastre-se</ion-title>
+  </ion-navbar>
 </ion-header>
 
 <ion-content padding class="default-bg">
-    <ion-list>
-        <form [formGroup]="userForm" (ngSubmit)="create()">
-
-            <ion-item color="secondary">
-                <ion-label floating color="dark">Email</ion-label>
-                <ion-input type="text" formControlName="email" name="email"></ion-input>
-                <ion-label floating color="danger" 
-                    *ngIf="user.formErrors.email as value">{{value}}</ion-label>
-            </ion-item>
-
-            <ion-item color="secondary">
-                <ion-label floating color="dark">Senha</ion-label>
-                <ion-input type="password" formControlName="password" name="password"></ion-input>
-                <ion-label floating color="danger" 
-                    *ngIf="user.formErrors.password as value">{{value}}</ion-label>                
-            </ion-item>
-
-            <ion-item color="secondary">
-                <ion-label floating color="dark">Confirmar senha</ion-label>
-                <ion-input type="password" formControlName="password_confirmation"
-                    name="password_confirmation"></ion-input>
-                <ion-label floating color="danger" 
-                    *ngIf="user.formErrors.password_confirmation as value">{{value}}</ion-label>                
-            </ion-item>
-
-            <div padding>
-                <button ion-button type="submit" color="primary" 
-                    block [disabled]="!userForm.valid">Cadastrar</button>
-            </div>
-        </form>
-    </ion-list>
+  <ion-list>
+    <form [formGroup]="userForm" (ngSubmit)="create()">
+      
+      <ion-item color="secondary">
+        <ion-label floating color="light">Email</ion-label>
+        <ion-input type="text" formControlName="email" name="email"></ion-input>
+        <ion-label floating color="danger" 
+        *ngIf="user.formErrors.email as value">{{value}}</ion-label>
+      </ion-item>
+      
+      <ion-item color="secondary">
+        <ion-label floating color="light">Senha</ion-label>
+        <ion-input type="password" formControlName="password" name="password"></ion-input>
+        <ion-label floating color="danger" 
+        *ngIf="user.formErrors.password as value">{{value}}</ion-label>                
+      </ion-item>
+      
+      <ion-item color="secondary">
+        <ion-label floating color="light">Confirmar senha</ion-label>
+        <ion-input type="password" formControlName="password_confirmation"
+        name="password_confirmation"></ion-input>
+        <ion-label floating color="danger" 
+        *ngIf="user.formErrors.password_confirmation as value">{{value}}</ion-label>                
+      </ion-item>
+      
+      <div padding>
+        <button ion-button type="submit" color="shadow" 
+        block [disabled]="!userForm.valid">Cadastrar</button>
+      </div>
+    </form>
+  </ion-list>
 </ion-content>

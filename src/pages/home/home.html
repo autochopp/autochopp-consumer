@@ -11,7 +11,7 @@
   
   <ion-item color="secondary">
     <ion-label floating color="light">Email</ion-label>
-    <ion-input [(ngModel)]="loginData.email" name="email" type="text"></ion-input>
+    <ion-input [(ngModel)]="loginData.email" name="email" type="text" autofocus></ion-input>
   </ion-item>
   
   <ion-item color="secondary">
@@ -21,7 +21,7 @@
   
   <div padding class="button-div">
     <button ion-button (click)="doLogin()" color="shadow" block>Entrar</button>
-    <button ion-button (click)="pushPage()" color="light" block>Cadastrar</button>
+    <button ion-button (click)="pushPage()" color="primary" block>Cadastrar</button>
   </div>
   
 </ion-content>

@@ -16,9 +16,21 @@
 // automatically applied to the <body> element in the app.
 
 .default-bg { 
-    background-color: #333132;
+  background-color: #333132;
 }
 
 ion-img.img-loaded img{
-    background-color: #333132;
+  background-color: #333132;
+}
+
+.item-inner{
+  margin-right: 1em;
+}
+
+.item-input ion-input {
+  color: #f4f4f4;
+}
+
+.item-input ion-input :focus{
+  color: #e4ac06;
 }

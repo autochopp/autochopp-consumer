@@ -23,14 +23,23 @@ ion-img.img-loaded img{
   background-color: #333132;
 }
 
-.item-inner{
+.item-md.item-block .item-inner{  
   margin-right: 1em;
+  border-bottom: 1px solid #6d6e72;
 }
 
 .item-input ion-input {
   color: #f4f4f4;
 }
 
-.item-input ion-input :focus{
+// .item-input ion-input :focus{
+//   color: #e4ac06;
+// }
+
+.select-text{
   color: #e4ac06;
+}
+
+.list-md .item-input:last-child{
+  border: none;
 }

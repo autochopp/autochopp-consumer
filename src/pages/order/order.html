@@ -8,7 +8,7 @@
   <form [formGroup]="order" (ngSubmit)="addToCart()">
     <ion-list>
       <ion-item color="secondary">
-        <ion-label color="dark">Tamanho</ion-label>
+        <ion-label color="light">Tamanho</ion-label>
         <ion-select name="size" formControlName="size" interface="popover">
           <ion-option value="500">500 ml</ion-option>
           <ion-option value="700">700 ml</ion-option>
@@ -16,14 +16,14 @@
       </ion-item>
       
       <ion-item color="secondary">
-        <ion-label color="dark">Tipo</ion-label>
+        <ion-label color="light">Tipo</ion-label>
         <ion-select name="chopp_type" formControlName="chopp_type" interface="popover">
           <ion-option value="tradicional">Tradicional</ion-option>
         </ion-select>
       </ion-item>
       
       <ion-item color="secondary">
-        <ion-label color="dark">Colarinho</ion-label>
+        <ion-label color="light">Colarinho</ion-label>
         <ion-select name="collar" formControlName="collar" interface="popover">
           <ion-option value="1">Pouco</ion-option>
           <ion-option value="2">Muito</ion-option>
@@ -31,48 +31,56 @@
       </ion-item>
       
       <ion-item color="secondary">
-          <ion-label color="dark">Quantidade</ion-label>
-          <ion-select name="quantity" formControlName="quantity" interface="popover">
-            <ion-option value="1">1</ion-option>
-            <ion-option value="2">2</ion-option>
-            <ion-option value="3">3</ion-option>
-            <ion-option value="4">4</ion-option>
-            <ion-option value="5">5</ion-option>
-            <ion-option value="6">6</ion-option>
-            <ion-option value="7">7</ion-option>
-            <ion-option value="8">8</ion-option>
-            <ion-option value="9">9</ion-option>
-            <ion-option value="10">10</ion-option>
-          </ion-select>
-        </ion-item>
+        <ion-label color="light">Quantidade</ion-label>
+        <ion-select name="quantity" formControlName="quantity" interface="popover">
+          <ion-option value="1">1</ion-option>
+          <ion-option value="2">2</ion-option>
+          <ion-option value="3">3</ion-option>
+          <ion-option value="4">4</ion-option>
+          <ion-option value="5">5</ion-option>
+        </ion-select>
+      </ion-item>
       
-      <button [disabled]="order.invalid" ion-button full block color="danger">Adicionar ao Carrinho</button>
+      <div padding>
+        <button [disabled]="order.invalid" ion-button full block color="shadow">Adicionar ao Carrinho</button>
+      </div>
+      
     </ion-list>
   </form>
-  <ion-card *ngFor="let item of shoppingCart">
-    <ion-card-content>
-      <p>
-        <button item-right clear id="remove-item" (click)='removeToCart(item)'>
-          <ion-icon name="close-circle"></ion-icon>
-        </button>
-      </p>
-      <p color="dark" class="chopp-order">
-        <span class="chopp-header">
-          <ion-icon name="beer"></ion-icon> x{{item.quantity}} Chopp
-        </span>
-        {{item.chopp_type}} de {{item.size}} ml 
-        <span *ngIf="item.collar==='1'">
-          com pouco colarinho
-        </span>
-        <span *ngIf="item.collar==='2'">
-          com muito colarinho
-        </span>
-        
-      </p>
-    </ion-card-content>
-  </ion-card>
+  <div class='cards-inner'>
+    <ion-card *ngFor="let item of shoppingCart">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-14>
+              <p color="light" class="chopp-order">
+                <span class="chopp-header">
+                  <ion-icon name="beer"></ion-icon> x{{item.quantity}} Chopp
+                </span>
+                {{item.chopp_type}} de {{item.size}} ml 
+                <span *ngIf="item.collar==='1'">
+                  com pouco colarinho
+                </span>
+                <span *ngIf="item.collar==='2'">
+                  com muito colarinho
+                </span>           
+              </p>
+            </ion-col>
+            <ion-col col-1>
+              <button item-right clear id="remove-item" (click)='removeToCart(item)'>
+                <ion-icon name="close-circle"></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
   
-  <h3>Valor total R$ {{totalValue}}</h3>
   
-  <button [disabled]="isCartEmpty()" ion-button icon-start (click)="goToPaymentPage()" color="primary" block>Finalizar compra</button>
+  <h3> Valor total R$ {{totalValue}},00</h3>
+  
+  <div padding>
+    <button [disabled]="isCartEmpty()" ion-button icon-start (click)="goToPaymentPage()" color="primary" block>Finalizar compra</button>
+  </div>
 </ion-content>

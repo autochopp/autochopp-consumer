@@ -30,7 +30,7 @@
         *ngIf="user.formErrors.password_confirmation as value">{{value}}</ion-label>                
       </ion-item>
       
-      <div padding>
+      <div class="submit-button" padding>
         <button ion-button type="submit" color="primary" 
         block [disabled]="!userForm.valid">Cadastrar</button>
       </div>

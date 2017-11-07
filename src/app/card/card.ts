@@ -25,7 +25,7 @@ export class Card {
     public securityCode: string;
     public hashCard: string;
     public hashBuyer: string;
-    public expirationMonth: number;
+    public expirationMonth: string;
     public expirationYear: number;
     public brand: string;
 

@@ -26,6 +26,7 @@ ion-img.img-loaded img{
 .item-md.item-block .item-inner{  
   margin-right: 1em;
   border-bottom: 1px solid #6d6e72;
+  box-shadow: none !important;  
 }
 
 .item-input ion-input {
@@ -40,6 +41,29 @@ ion-img.img-loaded img{
   color: #e4ac06;
 }
 
+.list-md .item-input{
+  box-shadow: none !important;
+}
+
 .list-md .item-input:last-child{
   border: none;
+}
+
+.toast-md .toast-message{
+  background-color: #6d6e72;
+}
+
+.datetime-text{
+  min-height: 0.65em;
+  line-height: 0.65em;
+  overflow: initial;
+}
+
+.item-md.item-input.ng-valid.item-input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner, 
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus):not(.item-input-has-focus) .item-inner {
+  border-bottom-color: #6d6e72;
+}
+
+.submit-button{
+  padding-top: 3em !important;
 }

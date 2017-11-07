@@ -15,7 +15,7 @@ declare let PagSeguroDirectPayment;
 export class PaymentPage {
   
   public cardForm: FormGroup;
-
+  
   // used by showLoader() method
   loading: any;
   
@@ -73,6 +73,10 @@ export class PaymentPage {
   public initBuyRequest(): void {
     
     this.card.hashBuyer = PagSeguroDirectPayment.getSenderHash();
+    
+    if(this.card.expirationMonth != null){
+      this.card.expirationMonth = this.card.expirationMonth.substring(0,2);
+    }
     
     PagSeguroDirectPayment.createCardToken({
       cardNumber: this.card.cardNumber,
@@ -151,12 +155,12 @@ export class PaymentPage {
     
     toast.present();
   }
-
+  
   private showLoader(): void {
     this.loading = this.loadingCtrl.create({
       content: 'Processando...'
     });
-
+    
     this.loading.present();
   }
 }

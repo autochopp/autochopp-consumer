@@ -1,9 +1,25 @@
 .default-bg {
-    .chopp-order {
-        font-size: 1.5em;
-        
-        .chopp-header {
-            font-size: 2.0em;
-        }
+  .chopp-order {
+    font-size: 1.5em;
+    
+    .chopp-header {
+      font-size: 2.0em;
     }
+  }
+}
+
+.tabs-button{
+  padding-bottom: 1em;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.activate-chops,
+.waiting-payment{
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.payment-message {
+  color: #e4ac06 !important;
 }

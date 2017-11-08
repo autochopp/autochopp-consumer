@@ -6,39 +6,69 @@
   
 </ion-header>
 
-
 <ion-content padding class="default-bg">
+  <div class="tabs-button">
+    <ion-grid>
+      <ion-row>
+        <ion-col col>
+          <button ion-button (click)="showActivateChopps()" [ngStyle]="{'background-color': buttonColorX}" block>Ativos</button>
+        </ion-col>
+        <ion-col col>        
+          <button ion-button (click)="showWaitingPaymentChopps()" [ngStyle]="{'background-color': buttonColorY}" block>Aguardando Pagamento</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
   
-  <ion-card *ngFor="let order of orders">
-    
-    <ion-card-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col col-9>
-            <h1 class="chopp-header">
-              <ion-icon name="beer"></ion-icon> Chopp {{order.chopp_type}}
-            </h1>
-            <p>
-              {{order.size}} ml
-              <span *ngIf="order.collar === 1 "> Com pouco colarinho </span>
-              <span *ngIf="order.collar === 2 "> Com muito colarinho </span>
-            </p>
-          </ion-col>
-          
-          <ng-container *ngIf="order.qrcode !== null">
+  <div class="activate-chops" [hidden]="!tabsValidator">
+    <h3 *ngIf="activateChopps.length === 0"> Não há cupons ativos no momento.</h3>
+    <ion-card *ngFor="let chopp of activateChopps">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-9>
+              <h2 class="chopp-header">
+                <ion-icon name="beer"></ion-icon> Chopp {{chopp.chopp_type}}
+              </h2>
+              <p>
+                {{chopp.size}} ml
+                <span *ngIf="chopp.collar === 1 "> com pouco colarinho </span>
+                <span *ngIf="chopp.collar === 2 "> com muito colarinho </span>
+              </p>
+            </ion-col>
             <ion-col col-3>
-              <button ion-button (click)="order.isHidden = !order.isHidden" color="shadow" block>Usar</button>
+              <button ion-button (click)="chopp.isHidden = !chopp.isHidden" color="primary" block>Usar</button>
             </ion-col> 
-            <div class="qr-code" [hidden]="order.isHidden">
-              <qr-code [value]="order.qrcode" [size]="250"></qr-code>
+            <div class="qr-code" [hidden]="chopp.isHidden">
+              <qr-code [value]="chopp.qrcode" [size]="250"></qr-code>
             </div>
-          </ng-container>
-          <h2 *ngIf="order.qrcode === null">
-            Aguardando Pagamento
-          </h2>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  
+  <div class="waiting-payment" [hidden]="tabsValidator">
+    <h3 *ngIf="waitingPaymentChopps.length === 0"> Não há pagamentos pendentes.</h3>      
+    <ion-card *ngFor="let chopp of waitingPaymentChopps">
+      <ion-card-content>
+        <ion-grid>
+          <ion-row>
+            <ion-col col>
+              <h2 class="chopp-header">
+                <ion-icon name="beer"></ion-icon> Chopp {{chopp.chopp_type}}
+              </h2>
+              <p>
+                {{chopp.size}} ml
+                <span *ngIf="chopp.collar === 1 "> com pouco colarinho </span>
+                <span *ngIf="chopp.collar === 2 "> com muito colarinho </span>
+              </p>
+              <h2 class="payment-message">Aguarde aprovação do pagamento para utilizar o cupom.</h2>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
   
 </ion-content>

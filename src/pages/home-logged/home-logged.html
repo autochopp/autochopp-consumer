@@ -8,22 +8,22 @@
 
 <ion-content padding class="default-bg" align="center"> 
   
-  <div padding class="logout-button">
-    <button ion-button icon-start (click)="logout()" type="submit" color="shadow" block> Sair </button>
-  </div>  
   
   <ion-img width="250" height="250" src="assets/logo.png"></ion-img>
   
   <div padding class="order-button">
-    <button ion-button icon-start (click)="goToOrderPage()" type="submit" color="shadow" block>
+    <button ion-button icon-start (click)="goToOrderPage()" type="submit" color="primary" block>
       <ion-icon name="cart"></ion-icon> Comprar 
     </button>
   </div>
   
   <div padding>
-    <button ion-button icon-start (click)="goToChoppsPage()" type="submit" color="shadow" block>
+    <button ion-button icon-start (click)="goToChoppsPage()" type="submit" color="primary" block>
       <ion-icon name="beer"></ion-icon> Meus chopps
     </button>
   </div>
   
+  <div padding>
+    <button ion-button icon-start (click)="logout()" type="submit" color="shadow" block> Sair </button>
+  </div>  
 </ion-content>

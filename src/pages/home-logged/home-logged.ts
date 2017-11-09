@@ -1,6 +1,6 @@
 import { AuthService } from './../../providers/auth-service/auth-service';
 import { Component } from '@angular/core';
-import { NavController, NavParams, ViewController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 
 import { OrderPage } from  '../order/order';
 import { ChoppsPage } from '../chopps/chopps';

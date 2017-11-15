@@ -1,20 +1,40 @@
 <ion-header>
   <ion-navbar>
-    <ion-title>Admin</ion-title>
+    <ion-title>Administrador</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding class="default-bg">
 
-  <div padding>
-    <button ion-button icon-start type="submit" color="primary" block>
-        <ion-icon name="cart"></ion-icon> Temperatura 
-      </button>
-  </div>
+  <ion-card>
+    <ion-card-header>
+      Máquina auto-chopp.
+    </ion-card-header>
+    <ion-card-content>
+      Informações sobre a operação da máquina.
+    </ion-card-content>
 
-  <div padding>
-    <button ion-button icon-start type="submit" color="primary" block>
-      <ion-icon name="beer"></ion-icon> Quantidade
-    </button>
-  </div>
+    <ion-item>
+      <ion-label> Status </ion-label>
+      <ion-label>
+        <ion-icon name="checkmark" color="green"></ion-icon>
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> Temperatura </ion-label>
+      <ion-label>
+        <ion-icon name="thermometer" color="primary"></ion-icon>
+         05º
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label> Quantidade </ion-label>
+      <ion-label>
+        <ion-icon name="beaker" color="primary"></ion-icon>
+        200/1000
+      </ion-label>
+    </ion-item>
+
+  </ion-card>
+
 </ion-content>

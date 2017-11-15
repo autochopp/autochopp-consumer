@@ -1,19 +1,21 @@
-import { HomeLoggedPage } from './../home-logged/home-logged';
 import { CardService } from './../../app/card/card.service';
 import { Card } from './../../app/card/card';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component } from '@angular/core';
-import { ToastController, NavController, LoadingController, NavParams } from "ionic-angular";
+import { ToastController, NavController, LoadingController, NavParams, ViewController } from "ionic-angular";
 
 import scriptjs from 'scriptjs';
 
 declare let PagSeguroDirectPayment;
 
+// factor thath subtract view stack to show HomeLogged
+const SUBTRACT_INDEX_FACTOR = 3;
+
 @Component({
   templateUrl: 'payment.html',
 })
 export class PaymentPage {
-  
+
   public cardForm: FormGroup;
   
   // used by showLoader() method
@@ -91,6 +93,7 @@ export class PaymentPage {
         this.submitToServer();
       },
       error: response => {
+        console.log(response);
         this.presentToast("Cartão inválido. Por favor, verifique os dados do cartão.", 5000);
       }
     });
@@ -107,13 +110,17 @@ export class PaymentPage {
     
     this.cardService.create(this.card, order)
     .then(result => {
-      this.navCtrl.push(HomeLoggedPage);
+      this.navCtrl.popTo(this.getHomeLoggedView());
       this.presentToast("Compra efetuada,\nAguardando pagamento.", 5000)
     })      
     .catch(error => this.presentToast(error.json().join('\n'), 10000));
     this.loading.dismiss();    
   }
   
+  private getHomeLoggedView(): ViewController {
+    return this.navCtrl.getByIndex(this.navCtrl.length() - SUBTRACT_INDEX_FACTOR);
+  }
+
   /**
   * Loads pagseguro's javascript into front-end view.
   */

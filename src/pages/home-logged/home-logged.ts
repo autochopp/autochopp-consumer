@@ -38,7 +38,8 @@ export class HomeLoggedPage {
 
   logout(): void{
     this.authService.logout();
-    this.navCtrl.push(HomePage);
+    this.navCtrl.setRoot(HomePage);            
+    this.navCtrl.popToRoot();
   }
 
 }

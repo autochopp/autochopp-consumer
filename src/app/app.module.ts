@@ -24,6 +24,8 @@ import { AdminPage } from '../pages/admin/admin';
 import { UserService } from './user/user.service';
 import { AuthService } from '../providers/auth-service/auth-service';
 import { ChoppsServiceProvider } from '../providers/chopps-service/chopps-service';
+import { AdminServiceProvider } from '../providers/admin-service/admin-service';
+
 
 // Another ionic/angular components
 import { StatusBar } from '@ionic-native/status-bar';
@@ -102,7 +104,8 @@ export function getAuthHttp(http) {
     AuthService,
     CardService,
     {provide: AuthHttp, useFactory: getAuthHttp, deps: [Http]},
-    ChoppsServiceProvider
+    ChoppsServiceProvider,
+    AdminServiceProvider
   ]
 })
 export class AppModule {}

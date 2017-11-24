@@ -15,7 +15,7 @@ const SUBTRACT_INDEX_FACTOR = 3;
   templateUrl: 'payment.html',
 })
 export class PaymentPage {
-
+  
   public cardForm: FormGroup;
   
   // used by showLoader() method
@@ -73,7 +73,7 @@ export class PaymentPage {
   * To perfom a transaction, API needs a card token.
   */
   public initBuyRequest(): void {
-    
+    this.showLoader();        
     this.card.hashBuyer = PagSeguroDirectPayment.getSenderHash();
     
     if(this.card.expirationMonth != null){
@@ -95,6 +95,7 @@ export class PaymentPage {
       error: response => {
         console.log(response);
         this.presentToast("Cartão inválido. Por favor, verifique os dados do cartão.", 5000);
+        this.loading.dismiss();                  
       }
     });
   }
@@ -103,7 +104,6 @@ export class PaymentPage {
   * Request API card to register
   */
   private submitToServer(): void {
-    this.showLoader();    
     console.log("Card data when submit data is " + JSON.stringify(this.card));
     
     const order = this.navParams.get('order');
@@ -112,15 +112,18 @@ export class PaymentPage {
     .then(result => {
       this.navCtrl.popTo(this.getHomeLoggedView());
       this.presentToast("Compra efetuada,\nAguardando pagamento.", 5000)
+      this.loading.dismiss();                        
     })      
-    .catch(error => this.presentToast(error.json().join('\n'), 10000));
-    this.loading.dismiss();    
+    .catch(error => {
+      this.presentToast(error.json().join('\n'), 7000)
+      this.loading.dismiss();                        
+    });
   }
   
   private getHomeLoggedView(): ViewController {
     return this.navCtrl.getByIndex(this.navCtrl.length() - SUBTRACT_INDEX_FACTOR);
   }
-
+  
   /**
   * Loads pagseguro's javascript into front-end view.
   */

@@ -59,14 +59,15 @@ export class HomePage {
 
         if(user_type == "admin"){
           this.navCtrl.setRoot(AdminPage);
+          this.loading.dismiss();
         }else{
           this.navCtrl.setRoot(HomeLoggedPage);        
+          this.loading.dismiss();
         }
       }).catch(err => {
         this.presentToast("Dados inválidos, tente novamente...");
+        this.loading.dismiss();
       });
-    // after all
-    this.loading.dismiss();
   }
 
   // TODO refactor this
@@ -80,7 +81,7 @@ export class HomePage {
    */
   private showLoader(): void {
     this.loading = this.loadingCtrl.create({
-      content: 'Authenticating...'
+      content: 'Autenticando...'
     });
 
     this.loading.present();

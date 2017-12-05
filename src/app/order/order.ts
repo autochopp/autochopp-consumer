@@ -27,11 +27,11 @@ export class Order {
      * Calculate price of chopp
      */
     public static calculateAmount(size_chopp: number): number {
-      if (size_chopp == 300){
-          return 5.00;
+      if (size_chopp == 250){
+          return 4.00;
       }
-      else if(size_chopp == 500){
-          return 8.00;
+      else if(size_chopp == 350){
+          return 6.00;
       }
     }
 

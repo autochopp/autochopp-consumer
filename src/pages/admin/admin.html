@@ -5,46 +5,71 @@
 </ion-header>
 
 <ion-content padding class="default-bg">
-
+  
   <div class="admin-page">
+    
     <ion-card>
       <ion-card-header>
-        Informações sobre a operação da máquina
+        <b>Status da Máquina</b>
       </ion-card-header>
-
       <ion-item>
-        <ion-label> Status </ion-label>
-        <ion-label>
-          <span class="status-ok" *ngIf="machineStatus === 'true' ">
-            <ion-icon name="checkmark"></ion-icon>
-          </span>
-          <span class="status-not" *ngIf="machineStatus === null || machineStatus === 'false' ">
-            <ion-icon name="md-close" color="red"></ion-icon>
-          </span>
-        </ion-label>
+        <span *ngIf="machineStatus === null || machineStatus === 'false' ">
+          <ion-row>
+            <ion-col col-2>
+              <span class="status-not">
+                <ion-icon name="md-close" color="red"></ion-icon>
+              </span>
+            </ion-col>
+            <ion-col col-13>
+              <span>
+                A máquina não está operando corretamente, por favor verifique o manual de instruções.
+              </span>
+            </ion-col>
+          </ion-row>
+        </span>
+        <span *ngIf="machineStatus === 'true' ">
+          <ion-row>
+            <ion-col col-3>
+              <span class="status-ok">
+                <ion-icon name="checkmark"></ion-icon>
+              </span>
+            </ion-col>
+            <ion-col col-13>
+              <span>
+                A máquina está operando corretamente.
+              </span>
+            </ion-col>
+          </ion-row>
+        </span>
       </ion-item>
+    </ion-card>
+    
+    <ion-card>
       <ion-item>
-        <ion-label> Temperatura </ion-label>
+        <ion-label> <b>Temperatura</b> </ion-label>
         <ion-label>
           <ion-icon name="thermometer" color="primary"></ion-icon>
           {{temperature}} ºC
         </ion-label>
       </ion-item>
       <ion-item>
-        <ion-label> Quantidade </ion-label>
+        <ion-label>   <b>Quantidade</b> </ion-label>
         <ion-label>
           <ion-icon name="beaker" color="primary"></ion-icon>
           {{volume}}/30000 ml
+          <span *ngIf="1000 >= volume">
+            Volume crítico.
+          </span>
         </ion-label>
       </ion-item>
-
+      
     </ion-card>
   </div>
-
+  
   <div padding>
     <button ion-button icon-start (click)="refreshPage()" color="primary" block>
       <ion-icon name="refresh-circle"></ion-icon> Atualizar      
     </button>
   </div>
-
+  
 </ion-content>

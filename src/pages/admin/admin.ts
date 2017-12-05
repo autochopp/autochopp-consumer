@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { AdminServiceProvider } from '../../providers/admin-service/admin-service';
 import { AuthService } from './../../providers/auth-service/auth-service';
-import { HomePage } from '../home/home';
 import 'rxjs/add/operator/map';
 
 
@@ -41,14 +40,10 @@ export class AdminPage {
     console.log("status:" + this.machineStatus)
   }
 
-  logout(): void {
-    this.authService.logout();
-    this.navCtrl.setRoot(HomePage);
-    this.navCtrl.popToRoot();
-  }
-
   refreshPage(): void {
-    this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    // this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    this.navCtrl.pop()
+    this.navCtrl.push(AdminPage);
   }
 
   ionViewDidLoad() {

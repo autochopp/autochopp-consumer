@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Admin</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+
+<ion-content padding class="default-bg" align="center"> 
+  
+  <div class="logo-img">
+    <img src="assets/logo.png" style="width: 50%;" > 
+  </div>   
+  
+  <div padding class="order-button">
+    <button ion-button icon-start (click)="goToAdminPage()" type="submit" color="primary" block>
+      <ion-icon name="pulse"></ion-icon> Monitoramento
+    </button>
+  </div>
+  
+  <div padding>
+    <button ion-button icon-start (click)="goToInstructionsPage()" type="submit" color="primary" block>
+      <ion-icon name="book"></ion-icon> Manual de Instruções
+    </button>
+  </div>
+  
+  <div padding>
+    <button ion-button icon-start (click)="logout()" type="submit" color="shadow" block> Sair </button>
+  </div>  
+</ion-content>

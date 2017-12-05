@@ -18,7 +18,7 @@
           <span class="status-ok" *ngIf="machineStatus === 'true' ">
             <ion-icon name="checkmark"></ion-icon>
           </span>
-          <span class="status-not" *ngIf="machineStatus === null ">
+          <span class="status-not" *ngIf="machineStatus === null || machineStatus === 'false' ">
             <ion-icon name="md-close" color="red"></ion-icon>
           </span>
         </ion-label>
@@ -27,7 +27,7 @@
         <ion-label> Temperatura </ion-label>
         <ion-label>
           <ion-icon name="thermometer" color="primary"></ion-icon>
-          {{temperature}}
+          {{temperature}} ºC
         </ion-label>
       </ion-item>
       <ion-item>
@@ -42,9 +42,9 @@
   </div>
 
   <div padding>
-    <button ion-button (click)="refreshPage()" color="primary" block>Atualizar Informações</button>
-    <button ion-button (click)="logout()" color="shadow" block>Sair</button>
+    <button ion-button icon-start (click)="refreshPage()" color="primary" block>
+      <ion-icon name="refresh-circle"></ion-icon> Atualizar      
+    </button>
   </div>
-
 
 </ion-content>

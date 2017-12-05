@@ -1,5 +1,5 @@
 import { HomeLoggedPage } from './../home-logged/home-logged';
-import { AdminPage } from './../admin/admin';
+import { HomeAdminPage } from './../home-admin/home-admin';
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ToastController, App } from 'ionic-angular';
 
@@ -58,7 +58,7 @@ export class HomePage {
         let user_type = this.authService.user_type;
 
         if(user_type == "admin"){
-          this.navCtrl.setRoot(AdminPage);
+          this.navCtrl.setRoot(HomeAdminPage);
           this.loading.dismiss();
         }else{
           this.navCtrl.setRoot(HomeLoggedPage);        

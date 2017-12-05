@@ -19,6 +19,9 @@ import { PaymentPage } from './../pages/payment/payment';
 import { OrderPage } from './../pages/order/order';
 import { ChoppsPage } from '../pages/chopps/chopps';
 import { AdminPage } from '../pages/admin/admin';
+import { HomeAdminPage } from '../pages/home-admin/home-admin';
+import { InstructionsPage } from '../pages/instructions/instructions';
+
 
 // Providers
 import { UserService } from './user/user.service';
@@ -73,6 +76,8 @@ export function getAuthHttp(http) {
     OrderPage,
     ChoppsPage,
     AdminPage,
+    HomeAdminPage,
+    InstructionsPage,
     AlertComponent
   ],
   imports: [
@@ -94,7 +99,9 @@ export function getAuthHttp(http) {
     PaymentPage,
     OrderPage,
     ChoppsPage,
-    AdminPage
+    AdminPage,
+    HomeAdminPage,
+    InstructionsPage
   ],
   providers: [
     StatusBar,
